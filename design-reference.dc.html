@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2559; background: linear-gradient(160deg, #EEF2FF 0%, #F5F0FF 42%, #FFFFFF 100%); background-attachment: fixed; -webkit-font-smoothing: antialiased; }
+  a { color: #3B6FF5; text-decoration: none; }
+  a:hover { color: #2b57c9; }
+  @keyframes floaty { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-26px) rotate(8deg); } }
+  @keyframes floaty2 { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(22px) rotate(-10deg); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</helmet>
+
+<div style="position: relative; overflow: hidden; min-height: 100vh; width: 100%;">
+
+  <!-- decorative 3D shapes -->
+  <div style="position: absolute; top: 90px; left: -60px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #ffffff, #bcd3ff 34%, #3B6FF5 100%); box-shadow: 0 40px 80px -20px rgba(59,111,245,.45); filter: blur(.3px); animation: floaty 9s ease-in-out infinite; pointer-events: none; opacity: .92;"></div>
+  <div style="position: absolute; top: 340px; left: 40px; width: 90px; height: 90px; border-radius: 50%; background: radial-gradient(circle at 30% 28%, #fff, #ffd9cd 36%, #FF6B4A 100%); box-shadow: 0 24px 50px -14px rgba(255,107,74,.5); animation: floaty2 7s ease-in-out infinite; pointer-events: none;"></div>
+  <div style="position: absolute; top: 150px; right: -50px; width: 230px; height: 230px; border-radius: 50%; background: radial-gradient(circle at 34% 30%, #fff, #e7ddff 34%, #8B5CF6 100%); box-shadow: 0 44px 90px -24px rgba(139,92,246,.5); animation: floaty2 11s ease-in-out infinite; pointer-events: none; opacity: .9;"></div>
+  <div style="position: absolute; top: 420px; right: 70px; width: 74px; height: 74px; border-radius: 50%; border: 20px solid transparent; background: linear-gradient(#f6f8ff,#f6f8ff) padding-box, linear-gradient(135deg,#FFB800,#FF6B4A) border-box; box-shadow: 0 20px 44px -14px rgba(255,184,0,.5); animation: floaty 8s ease-in-out infinite; pointer-events: none;"></div>
+  <div style="position: absolute; top: 250px; right: 260px; width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle at 32% 30%, #fff, #b9f5ec 40%, #2DD4BF 100%); box-shadow: 0 16px 34px -12px rgba(45,212,191,.55); animation: floaty2 6s ease-in-out infinite; pointer-events: none;"></div>
+  <div style="position: absolute; top: 1050px; left: -70px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #fff, #e7ddff 36%, #8B5CF6 100%); box-shadow: 0 40px 80px -24px rgba(139,92,246,.4); animation: floaty 10s ease-in-out infinite; pointer-events: none; opacity: .55;"></div>
+  <div style="position: absolute; top: 1500px; right: -60px; width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #fff, #ffe7cd 36%, #FFB800 100%); box-shadow: 0 40px 80px -24px rgba(255,184,0,.4); animation: floaty2 9s ease-in-out infinite; pointer-events: none; opacity: .5;"></div>
+
+  <!-- NAVBAR -->
+  <nav style="position: sticky; top: 18px; z-index: 50; margin: 18px auto 0; max-width: 1180px; width: calc(100% - 32px); display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 14px 12px 24px; border-radius: 24px; background: rgba(255,255,255,0.62); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid rgba(255,255,255,0.75); box-shadow: 0 18px 50px -22px rgba(27,37,89,.28);">
+    <a href="#beranda" style="font-weight: 800; font-size: 20px; letter-spacing: -.02em; color: #1B2559;">UMKM<span style="color:#3B6FF5;">Tambaksari</span></a>
+    <div style="display: flex; align-items: center; gap: 6px;" data-navlinks>
+      <a href="#beranda" style="padding: 9px 15px; border-radius: 12px; font-size: 14.5px; font-weight: 600; color: #1B2559;" onMouseOver="{{ navHover }}" onMouseOut="{{ navOut }}">Beranda</a>
+      <a href="#katalog" style="padding: 9px 15px; border-radius: 12px; font-size: 14.5px; font-weight: 500; color: #8F9BBA;" onMouseOver="{{ navHover }}" onMouseOut="{{ navOut }}">Katalog</a>
+      <a href="#kategori" style="padding: 9px 15px; border-radius: 12px; font-size: 14.5px; font-weight: 500; color: #8F9BBA;" onMouseOver="{{ navHover }}" onMouseOut="{{ navOut }}">Kategori</a>
+      <a href="#tentang" style="padding: 9px 15px; border-radius: 12px; font-size: 14.5px; font-weight: 500; color: #8F9BBA;" onMouseOver="{{ navHover }}" onMouseOut="{{ navOut }}">Tentang</a>
+    </div>
+    <a href="#tentang" style="display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border-radius: 999px; font-size: 14.5px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #3B6FF5, #8B5CF6); box-shadow: 0 12px 26px -8px rgba(90,80,240,.6); transition: transform .2s ease, box-shadow .2s ease;" onMouseOver="{{ btnHover }}" onMouseOut="{{ btnOut }}">Masuk Admin</a>
+  </nav>
+
+  <!-- HERO -->
+  <header id="beranda" style="position: relative; z-index: 5; max-width: 900px; margin: 0 auto; padding: 78px 24px 34px; text-align: center;">
+    <span data-reveal style="display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px; border-radius: 999px; background: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.9); box-shadow: 0 10px 24px -12px rgba(27,37,89,.25); font-size: 13px; font-weight: 600; color: #3B6FF5; margin-bottom: 22px;">
+      <span style="width:8px;height:8px;border-radius:50%;background:#2DD4BF;display:inline-block;"></span> Kecamatan Tambaksari · Surabaya
+    </span>
+    <h1 data-reveal style="margin: 0; font-size: clamp(44px, 8vw, 84px); line-height: .98; font-weight: 800; letter-spacing: -.035em; color: #1B2559;">UMKM Tambaksari</h1>
+    <p data-reveal style="margin: 22px auto 0; max-width: 560px; font-size: clamp(15px,2.4vw,18px); line-height: 1.6; color: #8F9BBA; font-weight: 500;">Temukan produk terbaik dari pelaku usaha lokal Tambaksari, Surabaya.<br>Belanja mudah, dukung ekonomi warga.</p>
+
+    <!-- SEARCH BAR -->
+    <div data-reveal style="display: flex; align-items: center; gap: 10px; max-width: 620px; margin: 34px auto 0; padding: 9px 9px 9px 22px; border-radius: 999px; background: #fff; box-shadow: 0 26px 60px -22px rgba(27,37,89,.32), 0 0 0 1px rgba(255,255,255,.9);">
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" style="flex:none;"><circle cx="11" cy="11" r="7" stroke="#8F9BBA" stroke-width="2.2"/><path d="M20 20l-3.2-3.2" stroke="#8F9BBA" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <input placeholder="Cari UMKM atau produk..." style="flex: 1; min-width: 0; border: none; outline: none; background: transparent; font-family: inherit; font-size: 16px; font-weight: 500; color: #1B2559;">
+      <button style="flex: none; width: 48px; height: 48px; border: none; border-radius: 50%; cursor: pointer; background: linear-gradient(135deg, #FF8A5B, #FF6B4A); box-shadow: 0 12px 26px -8px rgba(255,107,74,.65); display: grid; place-items: center; transition: transform .2s ease;" onMouseOver="{{ btnHover }}" onMouseOut="{{ btnOut }}" aria-label="Cari">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#fff" stroke-width="2.4"/><path d="M20 20l-3.2-3.2" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <!-- quick filters -->
+    <div data-reveal style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;">
+      <sc-for list="{{ quickFilters }}" as="q" hint-placeholder-count="3">
+        <button style="padding: 9px 18px; border-radius: 999px; border: 1px solid rgba(255,255,255,.9); background: rgba(255,255,255,.6); backdrop-filter: blur(8px); font-family: inherit; font-size: 13.5px; font-weight: 600; color: #1B2559; cursor: pointer; box-shadow: 0 8px 20px -14px rgba(27,37,89,.35); transition: transform .18s ease;" onMouseOver="{{ chipHover }}" onMouseOut="{{ chipOut }}">{{ q }}</button>
+      </sc-for>
+    </div>
+  </header>
+
+  <!-- KATEGORI -->
+  <section id="kategori" style="position: relative; z-index: 5; max-width: 1180px; margin: 46px auto 0; padding: 0 24px;">
+    <div data-reveal style="text-align: center; margin-bottom: 30px;">
+      <h2 style="margin: 0; font-size: clamp(26px,4vw,36px); font-weight: 800; letter-spacing: -.03em;">Jelajahi Kategori</h2>
+      <p style="margin: 8px 0 0; color: #8F9BBA; font-weight: 500;">Temukan usaha lokal sesuai kebutuhanmu</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;" data-catgrid>
+      <sc-for list="{{ categories }}" as="c" hint-placeholder-count="10">
+        <a data-reveal href="#katalog" style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 22px 12px; border-radius: 22px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.85); box-shadow: 0 14px 34px -22px rgba(27,37,89,.3); cursor: pointer; transition: transform .22s ease, box-shadow .22s ease;" onMouseOver="{{ catHover }}" onMouseOut="{{ catOut }}">
+          <span style="width: 58px; height: 58px; border-radius: 18px; display: grid; place-items: center; font-size: 27px; background: {{ c.tint }}; box-shadow: 0 12px 24px -12px {{ c.shadow }};">{{ c.icon }}</span>
+          <span style="font-size: 14px; font-weight: 600; color: #1B2559;">{{ c.name }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- PRODUK / UMKM -->
+  <section id="katalog" style="position: relative; z-index: 5; max-width: 1180px; margin: 62px auto 0; padding: 0 24px;">
+    <div data-reveal style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 26px;">
+      <div>
+        <h2 style="margin: 0; font-size: clamp(26px,4vw,36px); font-weight: 800; letter-spacing: -.03em;">UMKM Unggulan</h2>
+        <p style="margin: 8px 0 0; color: #8F9BBA; font-weight: 500;">Pilihan usaha terbaik dari warga Tambaksari</p>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <sc-for list="{{ prodFilters }}" as="f" hint-placeholder-count="2">
+          <button style="padding: 9px 18px; border-radius: 999px; border: 1px solid {{ f.border }}; background: {{ f.bg }}; font-family: inherit; font-size: 13.5px; font-weight: 700; color: {{ f.color }}; cursor: pointer; transition: transform .18s ease;" onMouseOver="{{ chipHover }}" onMouseOut="{{ chipOut }}">{{ f.label }}</button>
+        </sc-for>
+        <a href="#katalog" style="font-size: 14px; font-weight: 700; color: #3B6FF5; padding: 9px 6px;">Lihat Semua →</a>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;" data-prodgrid>
+      <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
+        <div data-reveal style="display: flex; flex-direction: column; border-radius: 24px; background: #fff; box-shadow: 0 20px 46px -26px rgba(27,37,89,.35); overflow: hidden; transition: transform .24s ease, box-shadow .24s ease;" onMouseOver="{{ cardHover }}" onMouseOut="{{ cardOut }}">
+          <div style="position: relative; aspect-ratio: 1/1; background: {{ p.photo }}; display: grid; place-items: center;">
+            <span style="font-family: ui-monospace, monospace; font-size: 11px; letter-spacing: .05em; color: rgba(27,37,89,.4); text-transform: uppercase;">foto produk</span>
+            <button style="position: absolute; top: 12px; left: 12px; width: 34px; height: 34px; border: none; border-radius: 12px; background: rgba(255,255,255,.85); backdrop-filter: blur(6px); cursor: pointer; display: grid; place-items: center; box-shadow: 0 6px 16px -8px rgba(27,37,89,.4);" aria-label="Simpan">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 4h12v16l-6-4-6 4V4z" stroke="#1B2559" stroke-width="2" stroke-linejoin="round"/></svg>
+            </button>
+            <span style="position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 12px; background: rgba(255,255,255,.85); backdrop-filter: blur(6px); display: grid; place-items: center; box-shadow: 0 6px 16px -8px rgba(27,37,89,.4);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="14" rx="3" stroke="#1B2559" stroke-width="2"/><circle cx="12" cy="13" r="3.2" stroke="#1B2559" stroke-width="2"/><path d="M8 6l1.5-2h5L16 6" stroke="#1B2559" stroke-width="2" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div style="padding: 16px 16px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+            <h3 style="margin: 0; font-size: 16px; font-weight: 700; color: #1B2559; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ p.name }}</h3>
+            <p style="margin: 0; font-size: 12.5px; font-weight: 500; color: #8F9BBA;">{{ p.cat }} · {{ p.kel }}</p>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 12px;">
+              <span style="font-size: 15px; font-weight: 800; color: #1B2559;">{{ p.price }}</span>
+              <div style="display: flex; gap: 8px;">
+                <a href="{{ p.wa }}" target="_blank" rel="noopener noreferrer" style="width: 34px; height: 34px; border-radius: 11px; background: #25D366; display: grid; place-items: center; box-shadow: 0 8px 18px -8px rgba(37,211,102,.7);" aria-label="WhatsApp">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-1.9 1-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.7 1.8c.1.1.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.1.3.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.6-.1l.6-.7c.2-.3.4-.2.6-.1l1.7.8c.2.1.4.2.4.3.1.2.1.7-.1 1.3z"/></svg>
+                </a>
+                <a href="#katalog" style="width: 34px; height: 34px; border-radius: 11px; background: #FF6B4A; display: grid; place-items: center; box-shadow: 0 8px 18px -8px rgba(255,107,74,.7);" aria-label="Shopee">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><path d="M9 8a3 3 0 016 0" stroke="#fff" stroke-width="2"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div data-reveal style="display: flex; justify-content: center; margin-top: 40px;">
+      <button style="padding: 14px 34px; border-radius: 999px; border: 1.6px solid rgba(59,111,245,.4); background: rgba(255,255,255,.6); backdrop-filter: blur(8px); font-family: inherit; font-size: 15px; font-weight: 700; color: #3B6FF5; cursor: pointer; transition: transform .2s ease, background .2s ease;" onMouseOver="{{ moreHover }}" onMouseOut="{{ moreOut }}">Muat Lebih Banyak</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="tentang" style="position: relative; z-index: 5; max-width: 1180px; margin: 80px auto 0; padding: 0 24px 40px;">
+    <div style="border-radius: 30px; background: rgba(255,255,255,0.72); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.85); box-shadow: 0 24px 60px -30px rgba(27,37,89,.35); padding: 44px 40px 30px;">
+      <div style="display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 34px;" data-footgrid>
+        <div>
+          <div style="font-weight: 800; font-size: 19px; margin-bottom: 16px;">UMKM<span style="color:#3B6FF5;">Tambaksari</span></div>
+          <div style="display: flex; flex-direction: column; gap: 11px;">
+            <sc-for list="{{ footAbout }}" as="l" hint-placeholder-count="4">
+              <a href="#tentang" style="display: inline-flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 500; color: #8F9BBA;" onMouseOver="{{ linkHover }}" onMouseOut="{{ linkOut }}">
+                <span style="width:7px;height:7px;border-radius:50%;background:#3B6FF5;display:inline-block;"></span>{{ l }}
+              </a>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <div style="font-weight: 700; font-size: 14px; color: #1B2559; margin-bottom: 16px;">Kelurahan</div>
+          <div style="display: flex; flex-direction: column; gap: 11px;">
+            <sc-for list="{{ footKel }}" as="l" hint-placeholder-count="5">
+              <a href="#katalog" style="font-size: 14px; font-weight: 500; color: #8F9BBA;" onMouseOver="{{ linkHover }}" onMouseOut="{{ linkOut }}">{{ l }}</a>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <div style="font-weight: 700; font-size: 14px; color: #1B2559; margin-bottom: 16px;">Kategori</div>
+          <div style="display: flex; flex-direction: column; gap: 11px;">
+            <sc-for list="{{ footCat }}" as="l" hint-placeholder-count="4">
+              <a href="#kategori" style="font-size: 14px; font-weight: 500; color: #8F9BBA;" onMouseOver="{{ linkHover }}" onMouseOut="{{ linkOut }}">{{ l }}</a>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <div style="font-weight: 700; font-size: 14px; color: #1B2559; margin-bottom: 16px;">Populer</div>
+          <div style="display: flex; flex-direction: column; gap: 11px;">
+            <sc-for list="{{ footPop }}" as="l" hint-placeholder-count="4">
+              <a href="#katalog" style="font-size: 14px; font-weight: 500; color: #8F9BBA;" onMouseOver="{{ linkHover }}" onMouseOut="{{ linkOut }}">{{ l }}</a>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="height: 1px; background: rgba(143,155,186,.2); margin: 30px 0 20px;"></div>
+      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <span style="font-size: 13px; font-weight: 500; color: #8F9BBA;">© 2026 Katalog UMKM Kecamatan Tambaksari · Surabaya</span>
+        <a href="#tentang" style="font-size: 13px; font-weight: 700; color: #3B6FF5;">Masuk Admin →</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const waBase = 'https://wa.me/6281234567890?text=Halo%20saya%20tertarik%20dengan%20produk%20Anda';
+    return {
+      quickFilters: ['Terpopuler', 'Terdekat', 'Baru Buka'],
+      prodFilters: [
+        { label: 'Semua', bg: 'linear-gradient(135deg,#3B6FF5,#8B5CF6)', color: '#fff', border: 'transparent' },
+        { label: 'Terlaris', bg: 'rgba(255,255,255,.6)', color: '#1B2559', border: 'rgba(255,255,255,.9)' },
+      ],
+      categories: [
+        { name: 'Makanan',    icon: '🍜', tint: '#DBEAFE', shadow: 'rgba(59,111,245,.45)' },
+        { name: 'Minuman',    icon: '🧋', tint: '#FFE4DA', shadow: 'rgba(255,107,74,.45)' },
+        { name: 'Fashion',    icon: '👗', tint: '#EDE9FE', shadow: 'rgba(139,92,246,.45)' },
+        { name: 'Kerajinan',  icon: '🧺', tint: '#FEF3C7', shadow: 'rgba(255,184,0,.45)' },
+        { name: 'Jasa',       icon: '🛠️', tint: '#FEE2E2', shadow: 'rgba(239,68,68,.4)' },
+        { name: 'Kecantikan', icon: '💄', tint: '#CCFBF1', shadow: 'rgba(45,212,191,.45)' },
+        { name: 'Elektronik', icon: '💡', tint: '#FCE7F3', shadow: 'rgba(236,72,153,.4)' },
+        { name: 'Pertanian',  icon: '🌱', tint: '#D1FAE5', shadow: 'rgba(16,185,129,.4)' },
+        { name: 'Otomotif',   icon: '🛵', tint: '#DBEAFE', shadow: 'rgba(59,111,245,.45)' },
+        { name: 'Lainnya',    icon: '✨', tint: '#EDE9FE', shadow: 'rgba(139,92,246,.45)' },
+      ],
+      products: [
+        { name: 'Sambel Bu Yanti',        cat: 'Makanan',    kel: 'Tambaksari',       price: 'Rp 15rb–40rb',  photo: 'linear-gradient(135deg,#EDE9FE,#F5F0FF)', wa: waBase },
+        { name: 'Kopi Susu Rangkah',      cat: 'Minuman',    kel: 'Rangkah',          price: 'Rp 12rb–25rb',  photo: 'linear-gradient(135deg,#FCE7F3,#FFF0F6)', wa: waBase },
+        { name: 'Batik Ploso Ayu',        cat: 'Fashion',    kel: 'Ploso',            price: 'Rp 85rb–350rb', photo: 'linear-gradient(135deg,#DBEAFE,#EEF5FF)', wa: waBase },
+        { name: 'Anyaman Rotan Gading',   cat: 'Kerajinan',  kel: 'Gading',           price: 'Rp 50rb–200rb', photo: 'linear-gradient(135deg,#D1FAE5,#ECFDF5)', wa: waBase },
+        { name: 'Keripik Tempe Renyah',   cat: 'Makanan',    kel: 'Pacar Kembang',    price: 'Rp 10rb–30rb',  photo: 'linear-gradient(135deg,#FEF3C7,#FFFBEB)', wa: waBase },
+        { name: 'Skincare Ayu Beauty',    cat: 'Kecantikan', kel: 'Pacar Keling',     price: 'Rp 25rb–120rb', photo: 'linear-gradient(135deg,#EDE9FE,#F5F0FF)', wa: waBase },
+        { name: 'Servis Elektronik Jaya', cat: 'Elektronik', kel: 'Kapas Madya Baru', price: 'Rp 50rb–500rb', photo: 'linear-gradient(135deg,#DBEAFE,#EEF5FF)', wa: waBase },
+        { name: 'Sayur Hidroponik Setro', cat: 'Pertanian',  kel: 'Dukuh Setro',      price: 'Rp 8rb–35rb',   photo: 'linear-gradient(135deg,#D1FAE5,#ECFDF5)', wa: waBase },
+      ],
+      footAbout: ['Tentang Kami', 'Cara Daftar', 'Kontak', 'FAQ'],
+      footKel: ['Tambaksari', 'Ploso', 'Rangkah', 'Pacar Kembang', 'Gading'],
+      footCat: ['Makanan', 'Minuman', 'Fashion', 'Kerajinan'],
+      footPop: ['Terlaris', 'Terbaru', 'Promo', 'Unggulan'],
+      navHover: (e) => { e.currentTarget.style.background = 'rgba(59,111,245,.1)'; e.currentTarget.style.color = '#1B2559'; },
+      navOut: (e) => { e.currentTarget.style.background = 'transparent'; if (e.currentTarget.style.fontWeight !== '600') e.currentTarget.style.color = '#8F9BBA'; },
+      btnHover: (e) => { e.currentTarget.style.transform = 'translateY(-2px) scale(1.03)'; },
+      btnOut: (e) => { e.currentTarget.style.transform = 'none'; },
+      chipHover: (e) => { e.currentTarget.style.transform = 'translateY(-2px)'; },
+      chipOut: (e) => { e.currentTarget.style.transform = 'none'; },
+      catHover: (e) => { const el = e.currentTarget; el.style.transform = 'translateY(-8px) scale(1.03)'; el.style.boxShadow = '0 26px 48px -22px rgba(59,111,245,.5)'; },
+      catOut: (e) => { const el = e.currentTarget; el.style.transform = 'none'; el.style.boxShadow = '0 14px 34px -22px rgba(27,37,89,.3)'; },
+      cardHover: (e) => { const el = e.currentTarget; el.style.transform = 'translateY(-8px)'; el.style.boxShadow = '0 34px 60px -28px rgba(139,92,246,.5)'; },
+      cardOut: (e) => { const el = e.currentTarget; el.style.transform = 'none'; el.style.boxShadow = '0 20px 46px -26px rgba(27,37,89,.35)'; },
+      moreHover: (e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.background = 'rgba(59,111,245,.1)'; },
+      moreOut: (e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.background = 'rgba(255,255,255,.6)'; },
+      linkHover: (e) => { e.currentTarget.style.color = '#3B6FF5'; },
+      linkOut: (e) => { e.currentTarget.style.color = '#8F9BBA'; },
+    };
+  }
+
+  componentDidMount() {
+    this._injectResponsive();
+    requestAnimationFrame(() => this._setupReveal());
+  }
+
+  _injectResponsive() {
+    if (document.getElementById('umkm-responsive')) return;
+    const s = document.createElement('style');
+    s.id = 'umkm-responsive';
+    s.textContent = `
+      @media (max-width: 980px){
+        [data-navlinks]{display:none!important;}
+        [data-catgrid]{grid-template-columns:repeat(3,1fr)!important;}
+        [data-prodgrid]{grid-template-columns:repeat(2,1fr)!important;}
+        [data-footgrid]{grid-template-columns:1fr 1fr!important;}
+      }
+      @media (max-width: 560px){
+        [data-catgrid]{grid-template-columns:repeat(2,1fr)!important;}
+        [data-footgrid]{grid-template-columns:1fr 1fr!important;gap:26px!important;}
+      }
+      [data-reveal]{opacity:0;transform:translateY(26px);}
+      [data-reveal].shown{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+    `;
+    document.head.appendChild(s);
+  }
+
+  _setupReveal() {
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('shown')); return; }
+    const groups = new Map();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        const parent = el.parentElement;
+        const sibs = Array.from(parent.querySelectorAll(':scope > [data-reveal]'));
+        const idx = sibs.indexOf(el);
+        el.style.transitionDelay = Math.max(0, idx) * 55 + 'ms';
+        el.classList.add('shown');
+        io.unobserve(el);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(e => io.observe(e));
+  }
+}
+</script>
+</body>
+</html>

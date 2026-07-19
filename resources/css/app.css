@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        color: #1B2559;
+        background: linear-gradient(160deg, #EEF2FF 0%, #F5F0FF 42%, #FFFFFF 100%);
+        background-attachment: fixed;
+        -webkit-font-smoothing: antialiased;
+    }
+}
+
+@layer utilities {
+    .glass {
+        background: rgba(255, 255, 255, 0.62);
+        backdrop-filter: blur(18px) saturate(140%);
+        -webkit-backdrop-filter: blur(18px) saturate(140%);
+    }
+    .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* fade-in on scroll */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(26px);
+}
+[data-reveal].shown {
+    opacity: 1;
+    transform: none;
+    transition: opacity .7s cubic-bezier(.2, .7, .2, 1), transform .7s cubic-bezier(.2, .7, .2, 1);
+}
