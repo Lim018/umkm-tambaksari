@@ -32,6 +32,12 @@
                         <p class="mt-3 m-0 text-[15px] leading-relaxed text-grey-soft">{{ $umkm->description }}</p>
                     @endif
 
+                    @if ($umkm->kontak_populer >= \App\Models\ContactEvent::POPULARITY_MIN_UMKM)
+                        <div class="mt-4">
+                            <x-popularity-badge :count="$umkm->kontak_populer" variant="detail" />
+                        </div>
+                    @endif
+
                     <div class="mt-6 flex flex-wrap gap-2.5">
                         <a href="{{ route('go.umkm', [$umkm, 'whatsapp']) }}" target="_blank" rel="noopener noreferrer nofollow"
                            class="inline-flex items-center rounded-lg bg-[#25D366] px-4 py-2.5 text-[14px] font-bold text-white hover:brightness-105">
@@ -90,6 +96,12 @@
                             @unless ($menu->is_available)
                                 <span class="absolute left-3 top-3 rounded-md bg-navy/80 px-2 py-1 text-[11px] font-bold text-white">Habis</span>
                             @endunless
+
+                            <span class="absolute bottom-3 left-3">
+                                <x-popularity-badge :count="$menu->kontak_populer ?? 0"
+                                                    :min="\App\Models\ContactEvent::POPULARITY_MIN_MENU"
+                                                    noun="dipesan" />
+                            </span>
                         </div>
 
                         <div class="flex flex-1 flex-col gap-1.5 p-4">

@@ -2,6 +2,7 @@
 
 @php
     $menuCount = $umkm->menus_count ?? null;
+    $kontak = $umkm->kontak_populer ?? 0;
 @endphp
 
 <article data-reveal
@@ -17,11 +18,15 @@
             <span class="grid h-full place-items-center text-[11px] font-medium text-navy/30">Belum ada foto</span>
         @endif
 
-        @if ($menuCount)
-            <span class="absolute bottom-2.5 left-2.5 z-[2] rounded-md bg-white/95 px-2 py-0.5 text-[11px] font-semibold text-navy">
-                {{ $menuCount }} menu
-            </span>
-        @endif
+        <div class="absolute bottom-2.5 left-2.5 z-[2] flex flex-wrap items-center gap-1.5">
+            @if ($menuCount)
+                <span class="rounded-md bg-white/95 px-2 py-0.5 text-[11px] font-semibold text-navy">
+                    {{ $menuCount }} menu
+                </span>
+            @endif
+
+            <x-popularity-badge :count="$kontak" />
+        </div>
     </div>
 
     <div class="relative z-[2] flex flex-1 flex-col p-3.5 pointer-events-none">

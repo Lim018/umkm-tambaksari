@@ -57,20 +57,29 @@
         </form>
 
         <div data-reveal class="mb-5 flex flex-wrap items-center justify-between gap-3">
-            <p class="text-[14px] font-medium text-grey-soft">{{ $umkms->total() }} toko ditemukan</p>
-            <div class="flex gap-2">
-                <a href="{{ route('catalog.index', array_merge(request()->except('sort', 'page'), ['sort' => 'baru'])) }}"
-                   @class([
-                       'rounded-lg px-3.5 py-1.5 text-[13px] font-semibold',
-                       'bg-navy text-white' => $sort !== 'terlaris',
-                       'bg-white text-navy ring-1 ring-slate-200' => $sort === 'terlaris',
-                   ])>Terbaru</a>
-                <a href="{{ route('catalog.index', array_merge(request()->except('sort', 'page'), ['sort' => 'terlaris'])) }}"
-                   @class([
-                       'rounded-lg px-3.5 py-1.5 text-[13px] font-semibold',
-                       'bg-navy text-white' => $sort === 'terlaris',
-                       'bg-white text-navy ring-1 ring-slate-200' => $sort !== 'terlaris',
-                   ])>Terlaris</a>
+            <div>
+                <p class="m-0 text-[14px] font-medium text-grey-soft">{{ $umkms->total() }} toko ditemukan</p>
+                @if ($sort === 'populer')
+                    <p class="m-0 mt-0.5 text-[12px] text-grey-soft/80">
+                        Diurutkan dari yang paling sering dihubungi pengunjung dalam
+                        {{ \App\Models\ContactEvent::POPULARITY_DAYS }} hari terakhir
+                    </p>
+                @endif
+            </div>
+            <div class="flex flex-wrap gap-2">
+                @foreach ([
+                    'baru' => 'Terbaru',
+                    'populer' => 'Paling ramai',
+                    'terlaris' => 'Terlaris',
+                ] as $value => $label)
+                    @php $aktif = $value === 'baru' ? ! in_array($sort, ['populer', 'terlaris'], true) : $sort === $value; @endphp
+                    <a href="{{ route('catalog.index', array_merge(request()->except('sort', 'page'), ['sort' => $value])) }}"
+                       @class([
+                           'rounded-lg px-3.5 py-1.5 text-[13px] font-semibold',
+                           'bg-navy text-white' => $aktif,
+                           'bg-white text-navy ring-1 ring-slate-200' => ! $aktif,
+                       ])>{{ $label }}</a>
+                @endforeach
             </div>
         </div>
 

@@ -25,6 +25,16 @@ class ContactEvent extends Model
     /** Klik berulang pengunjung yang sama dihitung sekali dalam jendela ini. */
     private const DEDUPE_MINUTES = 30;
 
+    /** Jendela yang dipakai badge "sering dihubungi" di halaman publik. */
+    public const POPULARITY_DAYS = 30;
+
+    /**
+     * Badge baru muncul setelah ambang ini. Angka satu-dua digit kecil justru
+     * membuat toko baru terlihat sepi, jadi lebih baik tidak ditampilkan.
+     */
+    public const POPULARITY_MIN_UMKM = 5;
+    public const POPULARITY_MIN_MENU = 3;
+
     protected $fillable = ['umkm_id', 'menu_id', 'channel', 'source', 'visitor_hash'];
 
     public function umkm(): BelongsTo

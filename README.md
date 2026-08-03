@@ -54,6 +54,24 @@ Aturan pencatatan:
 - Menghapus toko ikut menghapus riwayat kontaknya (`cascadeOnDelete`). Unduh CSV
   dulu bila datanya masih dibutuhkan.
 
+### Badge popularitas di halaman publik
+
+Hitungan yang sama ditampilkan ke pengunjung sebagai bukti sosial, memakai jendela
+`ContactEvent::POPULARITY_DAYS` (30 hari):
+
+- Kartu toko (beranda & katalog): `🔥 12× dihubungi`
+- Halaman toko: ringkasan kontak toko + badge `🔥 9× dipesan` pada tiap menu
+- Katalog punya urutan **Paling ramai** (`?sort=populer`)
+
+Badge baru muncul di atas ambang `POPULARITY_MIN_UMKM` (5) dan `POPULARITY_MIN_MENU`
+(3). Di bawah itu badge disembunyikan — angka satu-dua digit kecil justru membuat
+toko baru terlihat sepi. Kontak lewat tombol menu ikut dihitung sebagai kontak toko,
+jadi angka toko selalu ≥ jumlah kontak menunya.
+
+Angka ini mengukur **klik menghubungi**, bukan penjualan. Deduplikasi 30 menit
+menahan klik iseng, tetapi bukan pertahanan penuh terhadap orang yang sengaja
+menggelembungkan angkanya sendiri.
+
 ## Ganti data placeholder
 - Nomor WhatsApp seeder = `6281234567890`. Ganti lewat panel admin (format `62...`).
 - Foto UMKM: upload lewat admin → tersimpan di `storage/app/public/umkm`.

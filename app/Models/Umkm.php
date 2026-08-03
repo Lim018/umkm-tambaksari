@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,6 +32,14 @@ class Umkm extends Model
     public function contactEvents(): HasMany
     {
         return $this->hasMany(ContactEvent::class);
+    }
+
+    /** Sertakan hitungan kontak yang dipakai badge popularitas publik. */
+    public function scopeWithPopularity(Builder $query): Builder
+    {
+        return $query->withCount([
+            'contactEvents as kontak_populer' => fn (Builder $q) => $q->lastDays(ContactEvent::POPULARITY_DAYS),
+        ]);
     }
 
     /** Link WhatsApp siap-pakai. */
