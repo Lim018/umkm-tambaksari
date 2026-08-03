@@ -68,6 +68,18 @@ Badge baru muncul di atas ambang `POPULARITY_MIN_UMKM` (5) dan `POPULARITY_MIN_M
 toko baru terlihat sepi. Kontak lewat tombol menu ikut dihitung sebagai kontak toko,
 jadi angka toko selalu ≥ jumlah kontak menunya.
 
+Untuk melihat badge tanpa menunggu trafik nyata:
+
+```bash
+php artisan db:seed --class=DemoContactEventSeeder
+```
+
+Seeder itu **mengosongkan `contact_events`** lalu mengisi ulang dengan kontak
+buatan yang mencakup semua keadaan badge (sangat ramai, pas di atas ambang, dan
+di bawah ambang). Sengaja tidak dipanggil `DatabaseSeeder` supaya
+`migrate:fresh --seed` tidak pernah menghasilkan angka palsu yang terbawa ke
+laporan sungguhan, dan menolak jalan bila `APP_ENV=production`.
+
 Angka ini mengukur **klik menghubungi**, bukan penjualan. Deduplikasi 30 menit
 menahan klik iseng, tetapi bukan pertahanan penuh terhadap orang yang sengaja
 menggelembungkan angkanya sendiri.
