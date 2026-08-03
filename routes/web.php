@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UmkmController;
 use App\Http\Controllers\CatalogController;
@@ -23,7 +22,6 @@ Route::get('/dashboard', fn () => redirect()->route('admin.dashboard'))
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('umkm', UmkmController::class)->except('show');
-    Route::resource('kategori', CategoryController::class)->except('show');
 });
 
 // Profil (bawaan Breeze)

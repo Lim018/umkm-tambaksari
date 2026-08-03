@@ -18,9 +18,6 @@
                     <x-nav-link :href="route('admin.umkm.index')" :active="request()->routeIs('admin.umkm.*')">
                         {{ __('UMKM') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.kategori.index')" :active="request()->routeIs('admin.kategori.*')">
-                        {{ __('Kategori') }}
-                    </x-nav-link>
                 </div>
             </div>
 
@@ -78,9 +75,6 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.umkm.index')" :active="request()->routeIs('admin.umkm.*')">
                 {{ __('UMKM') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('admin.kategori.index')" :active="request()->routeIs('admin.kategori.*')">
-                {{ __('Kategori') }}
             </x-responsive-nav-link>
         </div>
 

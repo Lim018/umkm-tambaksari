@@ -15,7 +15,7 @@
             <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
                 @foreach ([
                     ['label' => 'Total UMKM', 'val' => $stats['umkm'], 'color' => 'text-primary'],
-                    ['label' => 'Kategori', 'val' => $stats['kategori'], 'color' => 'text-ungu'],
+                    ['label' => 'Kelurahan', 'val' => $stats['kelurahan'], 'color' => 'text-ungu'],
                     ['label' => 'Unggulan', 'val' => $stats['featured'], 'color' => 'text-coral'],
                     ['label' => 'Terlaris', 'val' => $stats['bestseller'], 'color' => 'text-teal'],
                 ] as $s)
@@ -28,7 +28,6 @@
 
             <div class="mt-6 flex flex-wrap gap-3">
                 <a href="{{ route('admin.umkm.index') }}" class="rounded-pill bg-gradient-to-br from-primary to-ungu px-5 py-2.5 text-sm font-bold text-white">Kelola UMKM</a>
-                <a href="{{ route('admin.kategori.index') }}" class="rounded-pill border border-primary/40 bg-white/70 px-5 py-2.5 text-sm font-bold text-primary">Kelola Kategori</a>
                 <a href="{{ route('admin.umkm.create') }}" class="rounded-pill border border-white/90 bg-white/70 px-5 py-2.5 text-sm font-bold text-navy">+ UMKM Baru</a>
             </div>
 

@@ -1,7 +1,7 @@
 @php
     $footAbout = ['Tentang Kami', 'Cara Daftar', 'Kontak', 'FAQ'];
     $footKel = ['Tambaksari', 'Ploso', 'Rangkah', 'Pacar Kembang', 'Gading'];
-    $footCat = ['Makanan', 'Minuman', 'Fashion', 'Kerajinan'];
+    $footCat = ['Makanan', 'Minuman', 'Fashion'];
     $footPop = ['Terlaris', 'Terbaru', 'Promo', 'Unggulan'];
 @endphp
 

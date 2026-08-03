@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Umkm;
 
 class DashboardController extends Controller
@@ -12,7 +11,7 @@ class DashboardController extends Controller
     {
         $stats = [
             'umkm' => Umkm::count(),
-            'kategori' => Category::count(),
+            'kelurahan' => Umkm::query()->distinct()->count('kelurahan'),
             'featured' => Umkm::where('is_featured', true)->count(),
             'bestseller' => Umkm::where('is_bestseller', true)->count(),
         ];
