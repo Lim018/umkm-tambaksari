@@ -32,9 +32,27 @@ Buka http://127.0.0.1:8000
   paginasi 8/hal.
 - Detail (`/umkm/{id}`).
 - Admin (`/admin/*`, middleware `auth`) — dashboard + CRUD UMKM & Kategori, upload foto.
+- Laporan kontak (`/admin/laporan`) — rekap lead per toko, filter periode, unduh CSV.
 
 Data contoh via `database/seeders/CatalogSeeder.php` (bukan hardcode di Blade).
 Acuan visual: `design-reference.dc.html`.
+
+## Pelacakan kontak
+
+Semua tombol WhatsApp/Shopee tidak menunjuk langsung ke tujuan, melainkan lewat
+`/go/{umkm}/{channel}` dan `/go/menu/{menu}`. Rute itu mencatat satu baris di
+`contact_events` lalu meneruskan pengunjung. Tujuannya mengukur berapa calon
+pembeli yang benar-benar dikirim katalog ke tiap toko — angka inilah bahan
+laporan kelurahan.
+
+Aturan pencatatan:
+- Klik berulang dari pengunjung yang sama ke sasaran yang sama dihitung **sekali
+  per 30 menit**.
+- Identitas pengunjung disimpan sebagai hash SHA-256 dari IP + user agent + APP_KEY
+  + tanggal. Dirotasi harian, jadi bukan alat pelacak lintas hari dan tidak ada IP mentah.
+- Crawler dan pengambil pratinjau tautan diabaikan, tetapi tetap diteruskan.
+- Menghapus toko ikut menghapus riwayat kontaknya (`cascadeOnDelete`). Unduh CSV
+  dulu bila datanya masih dibutuhkan.
 
 ## Ganti data placeholder
 - Nomor WhatsApp seeder = `6281234567890`. Ganti lewat panel admin (format `62...`).

@@ -28,6 +28,11 @@ class Umkm extends Model
         return $this->hasMany(Menu::class)->orderBy('sort_order')->orderBy('name');
     }
 
+    public function contactEvents(): HasMany
+    {
+        return $this->hasMany(ContactEvent::class);
+    }
+
     /** Link WhatsApp siap-pakai. */
     public function getWhatsappUrlAttribute(): string
     {

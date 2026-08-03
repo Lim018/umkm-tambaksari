@@ -12,6 +12,12 @@
             'active' => request()->routeIs('admin.umkm.*'),
             'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>',
         ],
+        [
+            'label' => 'Laporan kontak',
+            'href' => route('admin.laporan'),
+            'active' => request()->routeIs('admin.laporan'),
+            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a1 1 0 00-1-1H5a1 1 0 00-1 1v6a1 1 0 001 1h3a1 1 0 001-1zm0 0V9a1 1 0 011-1h4a1 1 0 011 1v10m-6 0a1 1 0 001 1h4a1 1 0 001-1m0 0V5a1 1 0 011-1h3a1 1 0 011 1v14a1 1 0 01-1 1h-3a1 1 0 01-1-1z"/>',
+        ],
     ];
 @endphp
 

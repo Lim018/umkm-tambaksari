@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Menu extends Model
 {
@@ -26,6 +27,11 @@ class Menu extends Model
     public function umkm(): BelongsTo
     {
         return $this->belongsTo(Umkm::class);
+    }
+
+    public function contactEvents(): HasMany
+    {
+        return $this->hasMany(ContactEvent::class);
     }
 
     /** Format harga Rupiah, mis. Rp 15.000 */

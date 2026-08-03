@@ -33,12 +33,12 @@
                     @endif
 
                     <div class="mt-6 flex flex-wrap gap-2.5">
-                        <a href="{{ $umkm->whatsapp_url }}" target="_blank" rel="noopener noreferrer"
+                        <a href="{{ route('go.umkm', [$umkm, 'whatsapp']) }}" target="_blank" rel="noopener noreferrer nofollow"
                            class="inline-flex items-center rounded-lg bg-[#25D366] px-4 py-2.5 text-[14px] font-bold text-white hover:brightness-105">
                             Hubungi WhatsApp
                         </a>
                         @if ($umkm->shopee_url)
-                            <a href="{{ $umkm->shopee_url }}" target="_blank" rel="noopener noreferrer"
+                            <a href="{{ route('go.umkm', [$umkm, 'shopee']) }}" target="_blank" rel="noopener noreferrer nofollow"
                                class="inline-flex items-center rounded-lg bg-coral px-4 py-2.5 text-[14px] font-bold text-white hover:brightness-105">
                                 Beli di Shopee
                             </a>
@@ -64,7 +64,7 @@
             <div data-reveal class="rounded-2xl border border-dashed border-slate-200 bg-white px-6 py-12 text-center">
                 <p class="font-bold text-navy">Menu belum tersedia</p>
                 <p class="mt-1 text-[14px] text-grey-soft">Hubungi toko langsung untuk menanyakan produk.</p>
-                <a href="{{ $umkm->whatsapp_url }}" target="_blank" rel="noopener noreferrer"
+                <a href="{{ route('go.umkm', [$umkm, 'whatsapp']) }}" target="_blank" rel="noopener noreferrer nofollow"
                    class="mt-5 inline-flex rounded-lg bg-[#25D366] px-4 py-2.5 text-[14px] font-bold text-white">
                     Tanya via WhatsApp
                 </a>
@@ -102,7 +102,7 @@
                             @endif
                             <div class="mt-auto pt-3">
                                 @if ($menu->is_available)
-                                    <a href="{{ $menu->whatsapp_url }}" target="_blank" rel="noopener noreferrer"
+                                    <a href="{{ route('go.menu', $menu) }}" target="_blank" rel="noopener noreferrer nofollow"
                                        class="inline-flex w-full items-center justify-center rounded-lg bg-[#25D366] px-3 py-2.5 text-[13px] font-bold text-white hover:brightness-105">
                                         Pesan WhatsApp
                                     </a>

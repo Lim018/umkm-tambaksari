@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Umkm;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,7 +13,14 @@ class UmkmController extends Controller
 {
     public function index()
     {
-        $umkms = Umkm::with('category')->withCount('menus')->latest('id')->paginate(12);
+        $umkms = Umkm::with('category')
+            ->withCount([
+                'menus',
+                'contactEvents as kontak_30' => fn (Builder $q) => $q->lastDays(30),
+            ])
+            ->latest('id')
+            ->paginate(12);
+
         return view('admin.umkm.index', compact('umkms'));
     }
 
