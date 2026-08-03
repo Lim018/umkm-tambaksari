@@ -6,17 +6,7 @@
     <x-hero />
 
     {{-- KATEGORI --}}
-    <section id="kategori" class="relative z-[5] mx-auto mt-[46px] max-w-[1180px] px-6">
-        <div data-reveal class="mb-[30px] text-center">
-            <h2 class="m-0 font-extrabold tracking-[-.03em]" style="font-size:clamp(26px,4vw,36px);">Jelajahi Kategori</h2>
-            <p class="mt-2 font-medium text-grey-soft">Temukan usaha lokal sesuai kebutuhanmu</p>
-        </div>
-        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            @foreach ($categories as $category)
-                <x-category-card :category="$category" />
-            @endforeach
-        </div>
-    </section>
+    <x-katalog-banner />
 
     {{-- UMKM UNGGULAN --}}
     <section id="katalog" class="relative z-[5] mx-auto mt-[62px] max-w-[1180px] px-6">

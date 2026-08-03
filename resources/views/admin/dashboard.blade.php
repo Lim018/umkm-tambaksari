@@ -22,7 +22,7 @@
         @foreach ([
             ['label' => 'Toko UMKM', 'val' => $stats['umkm'], 'href' => route('admin.umkm.index')],
             ['label' => 'Menu', 'val' => $stats['menu'], 'href' => route('admin.umkm.index')],
-            ['label' => 'Kategori', 'val' => $stats['kategori'], 'href' => route('admin.kategori.index')],
+            ['label' => 'Kelurahan', 'val' => $stats['kelurahan'], 'href' => route('admin.umkm.index')],
             ['label' => 'Unggulan', 'val' => $stats['featured'], 'href' => route('admin.umkm.index')],
         ] as $s)
             <a href="{{ $s['href'] }}" class="rounded-lg border border-slate-200 bg-white p-4 hover:border-slate-300">

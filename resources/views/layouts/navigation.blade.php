@@ -12,12 +12,6 @@
             'active' => request()->routeIs('admin.umkm.*'),
             'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>',
         ],
-        [
-            'label' => 'Kategori',
-            'href' => route('admin.kategori.index'),
-            'active' => request()->routeIs('admin.kategori.*'),
-            'icon' => '<path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/>',
-        ],
     ];
 @endphp
 
