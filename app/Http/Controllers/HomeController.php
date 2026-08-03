@@ -12,6 +12,7 @@ class HomeController extends Controller
         $categories = Category::orderBy('id')->get();
 
         $featured = Umkm::with('category')
+            ->withCount('menus')
             ->where('is_featured', true)
             ->latest('id')
             ->take(8)

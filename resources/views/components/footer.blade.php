@@ -48,7 +48,6 @@
 
         <div class="flex flex-wrap items-center justify-between gap-3">
             <span class="text-[13px] font-medium text-grey-soft">© {{ date('Y') }} Katalog UMKM Kecamatan Tambaksari · Surabaya</span>
-            <a href="{{ route('admin.login') }}" class="text-[13px] font-bold text-primary">Masuk Admin →</a>
         </div>
     </div>
 </footer>

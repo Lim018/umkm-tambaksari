@@ -14,6 +14,10 @@
         background-attachment: fixed;
         -webkit-font-smoothing: antialiased;
     }
+    body.admin-shell {
+        background: #F4F5F7;
+        background-attachment: scroll;
+    }
 }
 
 @layer utilities {

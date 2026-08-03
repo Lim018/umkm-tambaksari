@@ -14,7 +14,6 @@
         UMKM<span class="text-primary">Tambaksari</span>
     </a>
 
-    {{-- link tengah (desktop) --}}
     <div class="hidden items-center gap-1.5 md:flex">
         @foreach ($links as $link)
             <a href="{{ $link['href'] }}"
@@ -24,23 +23,15 @@
         @endforeach
     </div>
 
-    <div class="flex items-center gap-2">
-        <a href="{{ route('admin.login') }}"
-           class="inline-flex items-center gap-2 rounded-pill bg-gradient-to-br from-primary to-ungu px-[22px] py-[11px] text-[14.5px] font-bold text-white shadow-[0_12px_26px_-8px_rgba(90,80,240,.6)] transition hover:-translate-y-0.5 hover:scale-[1.03]">
-            Masuk Admin
-        </a>
-        {{-- hamburger (mobile) --}}
-        <button @click="open = !open" class="grid h-11 w-11 place-items-center rounded-xl bg-white/70 md:hidden" aria-label="Menu">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" x-show="!open">
-                <path d="M4 7h16M4 12h16M4 17h16" stroke="#1B2559" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" x-show="open" x-cloak>
-                <path d="M6 6l12 12M18 6L6 18" stroke="#1B2559" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-        </button>
-    </div>
+    <button @click="open = !open" class="grid h-11 w-11 place-items-center rounded-xl bg-white/70 md:hidden" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" x-show="!open">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="#1B2559" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" x-show="open" x-cloak>
+            <path d="M6 6l12 12M18 6L6 18" stroke="#1B2559" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </button>
 
-    {{-- menu mobile --}}
     <div x-show="open" x-cloak x-transition
          class="glass absolute left-0 right-0 top-[70px] flex flex-col gap-1 rounded-[24px] border border-white/75 p-3 shadow-soft md:hidden">
         @foreach ($links as $link)

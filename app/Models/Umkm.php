@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Umkm extends Model
 {
@@ -20,6 +21,11 @@ class Umkm extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function menus(): HasMany
+    {
+        return $this->hasMany(Menu::class)->orderBy('sort_order')->orderBy('name');
     }
 
     /** Link WhatsApp siap-pakai. */

@@ -16,11 +16,13 @@ class CatalogController extends Controller
         $sort = $request->query('sort', 'baru');
 
         $umkms = Umkm::with('category')
+            ->withCount('menus')
             ->when($q !== '', function ($query) use ($q) {
                 $query->where(function ($sub) use ($q) {
                     $sub->where('name', 'like', "%{$q}%")
                         ->orWhere('kelurahan', 'like', "%{$q}%")
-                        ->orWhereHas('category', fn ($c) => $c->where('name', 'like', "%{$q}%"));
+                        ->orWhereHas('category', fn ($c) => $c->where('name', 'like', "%{$q}%"))
+                        ->orWhereHas('menus', fn ($m) => $m->where('name', 'like', "%{$q}%"));
                 });
             })
             ->when($kategori, fn ($query) => $query->whereHas('category', fn ($c) => $c->where('slug', $kategori)))
@@ -38,7 +40,8 @@ class CatalogController extends Controller
 
     public function show(Umkm $umkm)
     {
-        $umkm->load('category');
+        $umkm->load(['category', 'menus']);
+
         return view('catalog.show', compact('umkm'));
     }
 }

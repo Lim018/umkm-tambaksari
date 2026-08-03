@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Menu;
 use App\Models\Umkm;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -41,8 +42,9 @@ class CatalogSeeder extends Seeder
             ['name' => 'Sayur Hidroponik Setro', 'cat' => 'Pertanian',  'kel' => 'Dukuh Setro',      'price' => 'Rp 8rb–35rb',   'bg' => 'linear-gradient(135deg,#D1FAE5,#ECFDF5)', 'feat' => true, 'best' => true],
         ];
 
+        $created = [];
         foreach ($umkms as $u) {
-            Umkm::create([
+            $created[$u['name']] = Umkm::create([
                 'name' => $u['name'],
                 'category_id' => $byName[$u['cat']]->id,
                 'kelurahan' => $u['kel'],
@@ -53,6 +55,50 @@ class CatalogSeeder extends Seeder
                 'is_featured' => $u['feat'],
                 'is_bestseller' => $u['best'],
             ]);
+        }
+
+        $menus = [
+            'Sambel Bu Yanti' => [
+                ['name' => 'Sambel Terasi Special', 'price' => 18000, 'description' => 'Sambel terasi homemade dengan cabai rawit segar, cocok untuk lauk harian.', 'sort' => 1],
+                ['name' => 'Sambel Ijo Pete', 'price' => 22000, 'description' => 'Pedas segar dengan potongan pete gurih. Porsi keluarga.', 'sort' => 2],
+                ['name' => 'Paket Nasi + Sambel', 'price' => 28000, 'description' => 'Nasi hangat, telur dadar, dan pilihan sambel favorit.', 'sort' => 3],
+            ],
+            'Kopi Susu Rangkah' => [
+                ['name' => 'Kopi Susu Gula Aren', 'price' => 18000, 'description' => 'Espresso, susu segar, dan gula aren lokal yang creamy.', 'sort' => 1],
+                ['name' => 'Es Matcha Latte', 'price' => 22000, 'description' => 'Matcha premium dengan foam lembut, disajikan dingin.', 'sort' => 2],
+                ['name' => 'Croissant Butter', 'price' => 15000, 'description' => 'Pastry renyah, cocok dampingan kopi pagi.', 'sort' => 3],
+            ],
+            'Batik Ploso Ayu' => [
+                ['name' => 'Kemeja Batik Pria', 'price' => 185000, 'description' => 'Batik tulis motif klasik Ploso, kain katun nyaman.', 'sort' => 1],
+                ['name' => 'Dress Batik Wanita', 'price' => 250000, 'description' => 'Potongan modern dengan motif flora khas Surabaya.', 'sort' => 2],
+            ],
+            'Keripik Tempe Renyah' => [
+                ['name' => 'Keripik Tempe Original 250g', 'price' => 15000, 'description' => 'Gurih renyah tanpa pengawet, cocok untuk cemilan keluarga.', 'sort' => 1],
+                ['name' => 'Keripik Tempe Pedas 250g', 'price' => 17000, 'description' => 'Balutan bumbu pedas manis yang bikin nagih.', 'sort' => 2],
+                ['name' => 'Paket Mixed 500g', 'price' => 28000, 'description' => 'Campuran original dan pedas dalam satu paket hemat.', 'sort' => 3],
+            ],
+            'Sayur Hidroponik Setro' => [
+                ['name' => 'Paket Selada Segar', 'price' => 12000, 'description' => 'Selada hidroponik dipanen pagi hari, siap salad.', 'sort' => 1],
+                ['name' => 'Pakcoy & Kangkung Mix', 'price' => 10000, 'description' => 'Sayur hijau segar untuk tumisan harian.', 'sort' => 2],
+            ],
+        ];
+
+        foreach ($menus as $umkmName => $items) {
+            $umkm = $created[$umkmName] ?? null;
+            if (! $umkm) {
+                continue;
+            }
+
+            foreach ($items as $item) {
+                Menu::create([
+                    'umkm_id' => $umkm->id,
+                    'name' => $item['name'],
+                    'price' => $item['price'],
+                    'description' => $item['description'],
+                    'is_available' => true,
+                    'sort_order' => $item['sort'],
+                ]);
+            }
         }
     }
 }

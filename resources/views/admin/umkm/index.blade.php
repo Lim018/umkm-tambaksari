@@ -1,59 +1,93 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="text-xl font-bold leading-tight text-navy">Kelola UMKM</h2>
-            <a href="{{ route('admin.umkm.create') }}" class="rounded-pill bg-gradient-to-br from-primary to-ungu px-5 py-2.5 text-sm font-bold text-white">+ UMKM Baru</a>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+                <h1 class="text-xl font-semibold tracking-tight text-navy">Toko UMKM</h1>
+                <p class="mt-0.5 text-sm text-slate-500">Kelola data toko dan menu masing-masing</p>
+            </div>
+            <a href="{{ route('admin.umkm.create') }}"
+               class="inline-flex items-center rounded-md bg-primary px-3.5 py-2 text-sm font-semibold text-white hover:bg-primary/90">
+                Tambah toko
+            </a>
         </div>
     </x-slot>
 
-    <div class="py-10">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            @if (session('status'))
-                <div class="mb-6 rounded-xl bg-teal/15 px-4 py-3 text-sm font-semibold text-teal">{{ session('status') }}</div>
-            @endif
+    @if (session('status'))
+        <div class="mb-4 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+            {{ session('status') }}
+        </div>
+    @endif
 
-            <div class="overflow-hidden rounded-2xl border border-white/80 bg-white/85 shadow-soft backdrop-blur">
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-grey-soft/15 text-left">
-                        <thead class="text-xs uppercase tracking-wide text-grey-soft">
-                            <tr>
-                                <th class="px-5 py-3">Nama</th>
-                                <th class="px-5 py-3">Kategori</th>
-                                <th class="px-5 py-3">Kelurahan</th>
-                                <th class="px-5 py-3">Harga</th>
-                                <th class="px-5 py-3">Label</th>
-                                <th class="px-5 py-3 text-right">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-grey-soft/10">
-                            @forelse ($umkms as $u)
-                                <tr class="text-sm">
-                                    <td class="px-5 py-3 font-semibold text-navy">{{ $u->name }}</td>
-                                    <td class="px-5 py-3 text-grey-soft">{{ $u->category?->name }}</td>
-                                    <td class="px-5 py-3 text-grey-soft">{{ $u->kelurahan }}</td>
-                                    <td class="px-5 py-3 text-navy">{{ $u->price_range }}</td>
-                                    <td class="px-5 py-3">
-                                        @if ($u->is_featured)<span class="mr-1 rounded-pill bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">Unggulan</span>@endif
-                                        @if ($u->is_bestseller)<span class="rounded-pill bg-coral/10 px-2 py-0.5 text-xs font-bold text-coral">Terlaris</span>@endif
-                                    </td>
-                                    <td class="px-5 py-3 text-right">
-                                        <a href="{{ route('admin.umkm.edit', $u) }}" class="font-bold text-primary">Edit</a>
-                                        <form action="{{ route('admin.umkm.destroy', $u) }}" method="POST" class="ml-3 inline"
-                                              onsubmit="return confirm('Hapus {{ $u->name }}?')">
-                                            @csrf @method('DELETE')
-                                            <button class="font-bold text-red-500">Hapus</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr><td colspan="6" class="px-5 py-8 text-center text-grey-soft">Belum ada UMKM.</td></tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="mt-6">{{ $umkms->links() }}</div>
+    <div class="overflow-hidden rounded-lg border border-slate-200 bg-white">
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-left text-sm">
+                <thead class="border-b border-slate-100 bg-slate-50 text-xs font-medium uppercase tracking-wide text-slate-500">
+                    <tr>
+                        <th class="px-4 py-3 sm:px-5">Toko</th>
+                        <th class="px-4 py-3">Kategori</th>
+                        <th class="px-4 py-3">Kelurahan</th>
+                        <th class="px-4 py-3">Menu</th>
+                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3 text-right sm:px-5">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @forelse ($umkms as $u)
+                        <tr class="hover:bg-slate-50/80">
+                            <td class="px-4 py-3 sm:px-5">
+                                <div class="flex items-center gap-3">
+                                    <div class="h-10 w-10 shrink-0 overflow-hidden rounded-md bg-slate-100"
+                                         @if (! $u->photo_path) style="background: {{ $u->pastel_bg }};" @endif>
+                                        @if ($u->photo_path)
+                                            <img src="{{ asset('storage/' . $u->photo_path) }}" alt="" class="h-full w-full object-cover">
+                                        @endif
+                                    </div>
+                                    <div class="min-w-0">
+                                        <p class="truncate font-medium text-navy">{{ $u->name }}</p>
+                                        <p class="truncate text-xs text-slate-500">{{ $u->price_range }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3 text-slate-600">{{ $u->category?->name }}</td>
+                            <td class="px-4 py-3 text-slate-600">{{ $u->kelurahan }}</td>
+                            <td class="px-4 py-3 tabular-nums text-slate-600">{{ $u->menus_count }}</td>
+                            <td class="px-4 py-3">
+                                <div class="flex flex-wrap gap-1">
+                                    @if ($u->is_featured)
+                                        <span class="rounded bg-slate-100 px-1.5 py-0.5 text-[11px] font-medium text-slate-700">Unggulan</span>
+                                    @endif
+                                    @if ($u->is_bestseller)
+                                        <span class="rounded bg-slate-100 px-1.5 py-0.5 text-[11px] font-medium text-slate-700">Terlaris</span>
+                                    @endif
+                                    @if (! $u->is_featured && ! $u->is_bestseller)
+                                        <span class="text-xs text-slate-400">—</span>
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="whitespace-nowrap px-4 py-3 text-right sm:px-5">
+                                <a href="{{ route('admin.umkm.menu.index', $u) }}" class="font-medium text-slate-700 hover:text-navy">Menu</a>
+                                <a href="{{ route('admin.umkm.edit', $u) }}" class="ml-3 font-medium text-primary hover:underline">Edit</a>
+                                <form action="{{ route('admin.umkm.destroy', $u) }}" method="POST" class="ml-3 inline"
+                                      onsubmit="return confirm('Hapus toko {{ $u->name }} beserta menunya?')">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="font-medium text-red-600 hover:underline">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="px-4 py-12 text-center text-slate-500 sm:px-5">
+                                Belum ada toko.
+                                <a href="{{ route('admin.umkm.create') }}" class="font-medium text-primary hover:underline">Tambah toko</a>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
+
+    @if ($umkms->hasPages())
+        <div class="mt-4">{{ $umkms->links() }}</div>
+    @endif
 </x-app-layout>

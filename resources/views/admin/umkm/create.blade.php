@@ -1,16 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-bold leading-tight text-navy">Tambah UMKM</h2>
+        <div>
+            <a href="{{ route('admin.umkm.index') }}" class="text-sm font-medium text-slate-500 hover:text-primary">← Toko UMKM</a>
+            <h1 class="mt-1 text-xl font-semibold tracking-tight text-navy">Tambah toko</h1>
+        </div>
     </x-slot>
 
-    <div class="py-10">
-        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <div class="rounded-2xl border border-white/80 bg-white/85 p-6 shadow-soft backdrop-blur md:p-8">
-                <form action="{{ route('admin.umkm.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @include('admin.umkm._form')
-                </form>
-            </div>
-        </div>
+    <div class="max-w-2xl rounded-lg border border-slate-200 bg-white p-5 sm:p-6">
+        <form action="{{ route('admin.umkm.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @include('admin.umkm._form')
+        </form>
     </div>
 </x-app-layout>

@@ -12,7 +12,7 @@ class UmkmController extends Controller
 {
     public function index()
     {
-        $umkms = Umkm::with('category')->latest('id')->paginate(12);
+        $umkms = Umkm::with('category')->withCount('menus')->latest('id')->paginate(12);
         return view('admin.umkm.index', compact('umkms'));
     }
 
@@ -56,6 +56,12 @@ class UmkmController extends Controller
 
     public function destroy(Umkm $umkm)
     {
+        foreach ($umkm->menus as $menu) {
+            if ($menu->photo_path) {
+                Storage::disk('public')->delete($menu->photo_path);
+            }
+        }
+
         if ($umkm->photo_path) {
             Storage::disk('public')->delete($umkm->photo_path);
         }

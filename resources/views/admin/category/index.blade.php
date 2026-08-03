@@ -1,36 +1,70 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="text-xl font-bold leading-tight text-navy">Kelola Kategori</h2>
-            <a href="{{ route('admin.kategori.create') }}" class="rounded-pill bg-gradient-to-br from-primary to-ungu px-5 py-2.5 text-sm font-bold text-white">+ Kategori Baru</a>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+                <h1 class="text-xl font-semibold tracking-tight text-navy">Kategori</h1>
+                <p class="mt-0.5 text-sm text-slate-500">Kelompok usaha di katalog publik</p>
+            </div>
+            <a href="{{ route('admin.kategori.create') }}"
+               class="inline-flex items-center rounded-md bg-primary px-3.5 py-2 text-sm font-semibold text-white hover:bg-primary/90">
+                Tambah kategori
+            </a>
         </div>
     </x-slot>
 
-    <div class="py-10">
-        <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            @if (session('status'))
-                <div class="mb-6 rounded-xl bg-teal/15 px-4 py-3 text-sm font-semibold text-teal">{{ session('status') }}</div>
-            @endif
+    @if (session('status'))
+        <div class="mb-4 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+            {{ session('status') }}
+        </div>
+    @endif
 
-            <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-                @foreach ($categories as $c)
-                    <div class="rounded-2xl border border-white/80 bg-white/85 p-5 text-center shadow-soft backdrop-blur">
-                        <span class="mx-auto grid h-14 w-14 place-items-center rounded-2xl text-2xl" style="background: {{ $c->tint }};">{{ $c->icon }}</span>
-                        <p class="mt-3 font-bold text-navy">{{ $c->name }}</p>
-                        <p class="text-xs text-grey-soft">{{ $c->umkms_count }} UMKM</p>
-                        <div class="mt-3 flex items-center justify-center gap-3 text-sm">
-                            <a href="{{ route('admin.kategori.edit', $c) }}" class="font-bold text-primary">Edit</a>
-                            <form action="{{ route('admin.kategori.destroy', $c) }}" method="POST"
-                                  onsubmit="return confirm('Hapus kategori {{ $c->name }}? UMKM di dalamnya ikut terhapus.')">
-                                @csrf @method('DELETE')
-                                <button class="font-bold text-red-500">Hapus</button>
-                            </form>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <div class="mt-6">{{ $categories->links() }}</div>
+    <div class="overflow-hidden rounded-lg border border-slate-200 bg-white">
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-left text-sm">
+                <thead class="border-b border-slate-100 bg-slate-50 text-xs font-medium uppercase tracking-wide text-slate-500">
+                    <tr>
+                        <th class="px-4 py-3 sm:px-5">Kategori</th>
+                        <th class="px-4 py-3">Slug</th>
+                        <th class="px-4 py-3">Jumlah toko</th>
+                        <th class="px-4 py-3 text-right sm:px-5">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @forelse ($categories as $c)
+                        <tr class="hover:bg-slate-50/80">
+                            <td class="px-4 py-3 sm:px-5">
+                                <div class="flex items-center gap-3">
+                                    <span class="grid h-9 w-9 place-items-center rounded-md text-base" style="background: {{ $c->tint }};">
+                                        {{ $c->icon }}
+                                    </span>
+                                    <span class="font-medium text-navy">{{ $c->name }}</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-3 font-mono text-xs text-slate-500">{{ $c->slug }}</td>
+                            <td class="px-4 py-3 tabular-nums text-slate-600">{{ $c->umkms_count }}</td>
+                            <td class="whitespace-nowrap px-4 py-3 text-right sm:px-5">
+                                <a href="{{ route('admin.kategori.edit', $c) }}" class="font-medium text-primary hover:underline">Edit</a>
+                                <form action="{{ route('admin.kategori.destroy', $c) }}" method="POST" class="ml-3 inline"
+                                      onsubmit="return confirm('Hapus kategori {{ $c->name }}? Toko di dalamnya ikut terhapus.')">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="font-medium text-red-600 hover:underline">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="px-4 py-12 text-center text-slate-500 sm:px-5">
+                                Belum ada kategori.
+                                <a href="{{ route('admin.kategori.create') }}" class="font-medium text-primary hover:underline">Tambah kategori</a>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
+
+    @if ($categories->hasPages())
+        <div class="mt-4">{{ $categories->links() }}</div>
+    @endif
 </x-app-layout>
