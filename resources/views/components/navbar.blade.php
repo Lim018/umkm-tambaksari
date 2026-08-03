@@ -15,7 +15,7 @@
     </a>
 
     {{-- link tengah (desktop) --}}
-    <div class="hidden items-center gap-1.5 md:flex">
+    <div class="hidden flex-1 items-center justify-center gap-1.5 md:flex">
         @foreach ($links as $link)
             <a href="{{ $link['href'] }}"
                class="rounded-xl px-[15px] py-[9px] text-[14.5px] font-medium text-grey-soft transition hover:bg-primary/10 hover:text-navy">
@@ -25,10 +25,6 @@
     </div>
 
     <div class="flex items-center gap-2">
-        <a href="{{ route('admin.login') }}"
-           class="inline-flex items-center gap-2 rounded-pill bg-gradient-to-br from-primary to-ungu px-[22px] py-[11px] text-[14.5px] font-bold text-white shadow-[0_12px_26px_-8px_rgba(90,80,240,.6)] transition hover:-translate-y-0.5 hover:scale-[1.03]">
-            Masuk Admin
-        </a>
         {{-- hamburger (mobile) --}}
         <button @click="open = !open" class="grid h-11 w-11 place-items-center rounded-xl bg-white/70 md:hidden" aria-label="Menu">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" x-show="!open">
