@@ -25,6 +25,7 @@
                     <tr>
                         <th class="px-4 py-3 sm:px-5">Toko</th>
                         <th class="px-4 py-3">Kategori</th>
+                        <th class="px-4 py-3">Jam buka</th>
                         <th class="px-4 py-3">Menu</th>
                         <th class="px-4 py-3">Kontak 30h</th>
                         <th class="px-4 py-3">Status</th>
@@ -49,6 +50,14 @@
                                 </div>
                             </td>
                             <td class="px-4 py-3 text-slate-600">{{ $u->category?->name }}</td>
+                            <td class="whitespace-nowrap px-4 py-3 text-slate-600">
+                                @if ($u->has_opening_hours)
+                                    <span class="tabular-nums">{{ $u->opening_hours_label }}</span>
+                                    <span class="block text-xs text-slate-400">{{ $u->open_days_label }}</span>
+                                @else
+                                    <span class="text-slate-300">Belum diisi</span>
+                                @endif
+                            </td>
                             <td class="px-4 py-3 tabular-nums text-slate-600">{{ $u->menus_count }}</td>
                             <td class="px-4 py-3 tabular-nums">
                                 @if ($u->kontak_30 > 0)
@@ -82,7 +91,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-4 py-12 text-center text-slate-500 sm:px-5">
+                            <td colspan="7" class="px-4 py-12 text-center text-slate-500 sm:px-5">
                                 Belum ada toko.
                                 <a href="{{ route('admin.umkm.create') }}" class="font-medium text-primary hover:underline">Tambah toko</a>
                             </td>

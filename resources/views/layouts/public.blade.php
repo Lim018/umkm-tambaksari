@@ -22,6 +22,9 @@
         @yield('content')
     </div>
 
+    {{-- Satu-satunya peta di situs ini: wilayah kecamatan, bukan per toko. --}}
+    <x-peta-kecamatan />
+
     <x-footer />
 </div>
 

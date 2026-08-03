@@ -33,6 +33,8 @@ Buka http://127.0.0.1:8000
 - Detail (`/umkm/{id}`).
 - Admin (`/admin/*`, middleware `auth`) — dashboard + CRUD UMKM & Kategori, upload foto.
 - Laporan kontak (`/admin/laporan`) — rekap lead per toko, filter periode, unduh CSV.
+- Section **Lokasi** — peta + alamat kecamatan, muncul sekali di bawah setiap
+  halaman publik, tepat sebelum footer (`layouts/public`).
 
 Data contoh via `database/seeders/CatalogSeeder.php` (bukan hardcode di Blade).
 Acuan visual: `design-reference.dc.html`.
@@ -83,6 +85,38 @@ laporan sungguhan, dan menolak jalan bila `APP_ENV=production`.
 Angka ini mengukur **klik menghubungi**, bukan penjualan. Deduplikasi 30 menit
 menahan klik iseng, tetapi bukan pertahanan penuh terhadap orang yang sengaja
 menggelembungkan angkanya sendiri.
+
+## Jam buka toko
+
+Tiga kolom pada `umkms`: `opening_time`, `closing_time`, dan `closed_days`
+(array nomor hari ISO, 1 = Senin … 7 = Minggu). Ketiganya opsional — toko tanpa
+jam buka tidak menampilkan status apa pun, bukan "tutup".
+
+- Katalog & beranda: titik hijau **Buka** / abu **Tutup** pada kartu.
+- Halaman toko: status + "Senin–Sabtu · 07.00–17.00 WIB".
+- Admin: satu blok **Jam buka** di form, plus kolom di daftar toko.
+
+Jam tutup lebih kecil dari jam buka berarti melewati tengah malam (mis.
+18.00–02.00); jam sesudah tengah malam dihitung milik hari kerja sebelumnya,
+termasuk saat mengecek hari libur.
+
+Status dihitung memakai `Umkm::TIMEZONE` (`Asia/Jakarta`), **bukan**
+`APP_TIMEZONE`. Mengubah `APP_TIMEZONE` akan menggeser stempel waktu
+`contact_events`, jadi zona waktu tampilan sengaja dipisah.
+
+## Peta & alamat kecamatan
+
+Diatur lewat `config/kecamatan.php`, semuanya bisa ditimpa dari `.env`
+(`KECAMATAN_ALAMAT`, `KECAMATAN_LAT`, `KECAMATAN_LNG`, …).
+
+**Periksa sebelum rilis:** alamat dan koordinat bawaan adalah nilai awal tingkat
+kecamatan, bukan alamat resmi kantor kecamatan.
+
+`KECAMATAN_PETA_PROVIDER` menerima `google` (bawaan) atau `osm`. Google dipakai
+karena petaknya gambar biasa sehingga tetap tampil di ponsel lama; embed
+OpenStreetMap sekarang menuntut WebGL dan hanya memunculkan pesan galat di
+perangkat tanpa dukungan itu. Pilih `osm` bila ingin menghindari pelacak pihak
+ketiga dan pengunjung dipastikan memakai peramban modern.
 
 ## Ganti data placeholder
 - Nomor WhatsApp seeder = `6281234567890`. Ganti lewat panel admin (format `62...`).

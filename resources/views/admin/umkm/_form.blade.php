@@ -79,6 +79,47 @@
         </div>
     </div>
 
+    {{-- Jam buka --}}
+    @php
+        $liburTerpilih = collect(old('closed_days', $umkm?->closed_days ?? []))->map(fn ($d) => (int) $d)->all();
+    @endphp
+    <div class="border-b border-slate-100 p-5 sm:p-6">
+        <h2 class="text-sm font-semibold text-navy">Jam buka</h2>
+        <p class="mt-0.5 text-xs text-slate-500">
+            Opsional. Bila diisi, katalog menampilkan status buka/tutup menurut waktu Surabaya (WIB)
+        </p>
+
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+            <div>
+                <label class="mb-1.5 block text-sm font-medium text-navy">Jam buka</label>
+                <input type="time" name="opening_time"
+                       value="{{ old('opening_time', $umkm?->opening_time ? substr($umkm->opening_time, 0, 5) : '') }}"
+                       class="h-10 w-full rounded-lg border-slate-200 text-sm focus:border-primary focus:ring-primary">
+            </div>
+            <div>
+                <label class="mb-1.5 block text-sm font-medium text-navy">Jam tutup</label>
+                <input type="time" name="closing_time"
+                       value="{{ old('closing_time', $umkm?->closing_time ? substr($umkm->closing_time, 0, 5) : '') }}"
+                       class="h-10 w-full rounded-lg border-slate-200 text-sm focus:border-primary focus:ring-primary">
+                <p class="mt-1 text-xs text-slate-500">Jam tutup lebih kecil dari jam buka berarti lewat tengah malam</p>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <p class="mb-2 text-sm font-medium text-navy">Hari libur <span class="font-normal text-slate-400">(kosongkan bila buka setiap hari)</span></p>
+            <div class="flex flex-wrap gap-x-5 gap-y-2">
+                @foreach (\App\Models\Umkm::DAY_NAMES as $nomor => $nama)
+                    <label class="inline-flex items-center gap-2 text-sm text-navy">
+                        <input type="checkbox" name="closed_days[]" value="{{ $nomor }}"
+                               @checked(in_array($nomor, $liburTerpilih, true))
+                               class="rounded border-slate-300 text-primary focus:ring-primary">
+                        {{ $nama }}
+                    </label>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
     {{-- Foto --}}
     <div class="border-b border-slate-100 p-5 sm:p-6">
         <h2 class="text-sm font-semibold text-navy">Foto & warna</h2>

@@ -89,12 +89,25 @@ class UmkmController extends Controller
             'shopee_url' => ['nullable', 'url', 'max:255'],
             'pastel_bg' => ['nullable', 'string', 'max:255'],
             'photo' => ['nullable', 'image', 'max:4096'],
+            'opening_time' => ['nullable', 'date_format:H:i', 'required_with:closing_time'],
+            'closing_time' => ['nullable', 'date_format:H:i', 'required_with:opening_time'],
+            'closed_days' => ['nullable', 'array'],
+            'closed_days.*' => ['integer', 'between:1,7'],
+        ], [
+            'opening_time.required_with' => 'Jam buka wajib diisi bila jam tutup diisi.',
+            'closing_time.required_with' => 'Jam tutup wajib diisi bila jam buka diisi.',
         ]);
 
         $data['kelurahan'] = 'Tambaksari';
+
+        // Hari libur tanpa jam buka tidak punya arti, jadi ikut dikosongkan.
+        $data['closed_days'] = filled($data['opening_time'] ?? null)
+            ? array_values(array_unique(array_map('intval', $data['closed_days'] ?? [])))
+            : null;
         $data['is_featured'] = $request->boolean('is_featured');
         $data['is_bestseller'] = $request->boolean('is_bestseller');
-        $data['pastel_bg'] = $data['pastel_bg'] ?: 'linear-gradient(135deg,#EDE9FE,#F5F0FF)';
+        // Field ini hanya dikirim oleh form admin, jadi jangan asumsikan selalu ada.
+        $data['pastel_bg'] = ($data['pastel_bg'] ?? null) ?: 'linear-gradient(135deg,#EDE9FE,#F5F0FF)';
         unset($data['photo']);
 
         return $data;

@@ -38,14 +38,14 @@ class CatalogSeeder extends Seeder
         Category::whereNotIn('slug', $keptSlugs)->delete();
 
         $umkms = [
-            ['name' => 'Sambel Bu Yanti',      'cat' => 'Makanan', 'price' => 'Rp 15rb–40rb',  'bg' => 'linear-gradient(135deg,#FFE4DA,#FFF3EE)', 'feat' => true, 'best' => true, 'desc' => 'Sambel homemade khas Tambaksari dengan resep turun-temurun. Pedas, gurih, dan cocok untuk lauk harian.'],
-            ['name' => 'Kopi Susu Rangkah',    'cat' => 'Minuman', 'price' => 'Rp 12rb–25rb',  'bg' => 'linear-gradient(135deg,#CCFBF1,#ECFEFB)', 'feat' => true, 'best' => true, 'desc' => 'Kedai kopi susu lokal dengan menu signature gula aren dan pastry ringan untuk teman ngopi.'],
-            ['name' => 'Batik Ploso Ayu',      'cat' => 'Fashion', 'price' => 'Rp 85rb–350rb', 'bg' => 'linear-gradient(135deg,#EDE9FE,#F5F0FF)', 'feat' => true, 'best' => false, 'desc' => 'Batik tulis dan print motif khas Surabaya. Pakaian siap pakai untuk pria dan wanita.'],
-            ['name' => 'Keripik Tempe Renyah', 'cat' => 'Makanan', 'price' => 'Rp 10rb–30rb',  'bg' => 'linear-gradient(135deg,#FEF3C7,#FFFBEB)', 'feat' => true, 'best' => true, 'desc' => 'Camilan keripik tempe tanpa pengawet, tersedia rasa original dan pedas dalam kemasan hemat.'],
-            ['name' => 'Es Dawet Gading',      'cat' => 'Minuman', 'price' => 'Rp 8rb–18rb',   'bg' => 'linear-gradient(135deg,#D1FAE5,#ECFDF5)', 'feat' => true, 'best' => false, 'desc' => 'Es dawet segar dengan santan kental dan gula merah alami. Minuman favorit warga setempat.'],
-            ['name' => 'Kaos Sablon Setro',    'cat' => 'Fashion', 'price' => 'Rp 55rb–150rb', 'bg' => 'linear-gradient(135deg,#DBEAFE,#EEF5FF)', 'feat' => true, 'best' => true, 'desc' => 'Kaos sablon custom dan ready stock dengan desain lokal. Bahan adem, cocok untuk daily wear.'],
-            ['name' => 'Rujak Cingur Keling',  'cat' => 'Makanan', 'price' => 'Rp 18rb–35rb',  'bg' => 'linear-gradient(135deg,#FCE7F3,#FFF0F6)', 'feat' => true, 'best' => false, 'desc' => 'Rujak cingur otentik dengan bumbu petis khas Surabaya. Segar, pedas, dan mengenyangkan.'],
-            ['name' => 'Jus Buah Segar Kapas', 'cat' => 'Minuman', 'price' => 'Rp 10rb–22rb',  'bg' => 'linear-gradient(135deg,#FEF3C7,#FFFBEB)', 'feat' => true, 'best' => true, 'desc' => 'Jus buah segar tanpa pengawet, diperas setiap hari. Pilihan sehat untuk cuaca panas.'],
+            ['name' => 'Sambel Bu Yanti',      'cat' => 'Makanan', 'price' => 'Rp 15rb–40rb',  'bg' => 'linear-gradient(135deg,#FFE4DA,#FFF3EE)', 'feat' => true, 'best' => true, 'desc' => 'Sambel homemade khas Tambaksari dengan resep turun-temurun. Pedas, gurih, dan cocok untuk lauk harian.', 'buka' => '07:00', 'tutup' => '17:00', 'libur' => [7]],
+            ['name' => 'Kopi Susu Rangkah',    'cat' => 'Minuman', 'price' => 'Rp 12rb–25rb',  'bg' => 'linear-gradient(135deg,#CCFBF1,#ECFEFB)', 'feat' => true, 'best' => true, 'desc' => 'Kedai kopi susu lokal dengan menu signature gula aren dan pastry ringan untuk teman ngopi.', 'buka' => '10:00', 'tutup' => '23:00', 'libur' => []],
+            ['name' => 'Batik Ploso Ayu',      'cat' => 'Fashion', 'price' => 'Rp 85rb–350rb', 'bg' => 'linear-gradient(135deg,#EDE9FE,#F5F0FF)', 'feat' => true, 'best' => false, 'desc' => 'Batik tulis dan print motif khas Surabaya. Pakaian siap pakai untuk pria dan wanita.', 'buka' => '09:00', 'tutup' => '16:00', 'libur' => [7]],
+            ['name' => 'Keripik Tempe Renyah', 'cat' => 'Makanan', 'price' => 'Rp 10rb–30rb',  'bg' => 'linear-gradient(135deg,#FEF3C7,#FFFBEB)', 'feat' => true, 'best' => true, 'desc' => 'Camilan keripik tempe tanpa pengawet, tersedia rasa original dan pedas dalam kemasan hemat.', 'buka' => '08:00', 'tutup' => '20:00', 'libur' => []],
+            ['name' => 'Es Dawet Gading',      'cat' => 'Minuman', 'price' => 'Rp 8rb–18rb',   'bg' => 'linear-gradient(135deg,#D1FAE5,#ECFDF5)', 'feat' => true, 'best' => false, 'desc' => 'Es dawet segar dengan santan kental dan gula merah alami. Minuman favorit warga setempat.', 'buka' => '10:00', 'tutup' => '18:00', 'libur' => [1]],
+            ['name' => 'Kaos Sablon Setro',    'cat' => 'Fashion', 'price' => 'Rp 55rb–150rb', 'bg' => 'linear-gradient(135deg,#DBEAFE,#EEF5FF)', 'feat' => true, 'best' => true, 'desc' => 'Kaos sablon custom dan ready stock dengan desain lokal. Bahan adem, cocok untuk daily wear.', 'buka' => '09:00', 'tutup' => '17:00', 'libur' => [6, 7]],
+            ['name' => 'Rujak Cingur Keling',  'cat' => 'Makanan', 'price' => 'Rp 18rb–35rb',  'bg' => 'linear-gradient(135deg,#FCE7F3,#FFF0F6)', 'feat' => true, 'best' => false, 'desc' => 'Rujak cingur otentik dengan bumbu petis khas Surabaya. Segar, pedas, dan mengenyangkan.', 'buka' => '10:00', 'tutup' => '21:00', 'libur' => []],
+            ['name' => 'Jus Buah Segar Kapas', 'cat' => 'Minuman', 'price' => 'Rp 10rb–22rb',  'bg' => 'linear-gradient(135deg,#FEF3C7,#FFFBEB)', 'feat' => true, 'best' => true, 'desc' => 'Jus buah segar tanpa pengawet, diperas setiap hari. Pilihan sehat untuk cuaca panas.', 'buka' => '18:00', 'tutup' => '02:00', 'libur' => []],
         ];
 
         $created = [];
@@ -61,6 +61,9 @@ class CatalogSeeder extends Seeder
                 'shopee_url' => null,
                 'is_featured' => $u['feat'],
                 'is_bestseller' => $u['best'],
+                'opening_time' => $u['buka'],
+                'closing_time' => $u['tutup'],
+                'closed_days' => $u['libur'],
             ]);
         }
 

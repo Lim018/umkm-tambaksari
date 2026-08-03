@@ -32,8 +32,17 @@
                         <p class="mt-3 m-0 text-[15px] leading-relaxed text-grey-soft">{{ $umkm->description }}</p>
                     @endif
 
+                    @if ($umkm->has_opening_hours)
+                        <div class="mt-4 flex flex-wrap items-center gap-2.5">
+                            <x-status-buka :umkm="$umkm" variant="detail" />
+                            <span class="text-[14px] text-grey-soft">
+                                {{ $umkm->open_days_label }} · {{ $umkm->opening_hours_label }} WIB
+                            </span>
+                        </div>
+                    @endif
+
                     @if ($umkm->kontak_populer >= \App\Models\ContactEvent::POPULARITY_MIN_UMKM)
-                        <div class="mt-4">
+                        <div class="mt-3">
                             <x-popularity-badge :count="$umkm->kontak_populer" variant="detail" />
                         </div>
                     @endif

@@ -26,6 +26,7 @@
             @endif
 
             <x-popularity-badge :count="$kontak" />
+            <x-status-buka :umkm="$umkm" />
         </div>
     </div>
 
