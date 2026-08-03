@@ -12,7 +12,6 @@ class DashboardController extends Controller
     {
         $stats = [
             'umkm' => Umkm::count(),
-            'kelurahan' => Umkm::query()->distinct()->count('kelurahan'),
             'featured' => Umkm::where('is_featured', true)->count(),
             'bestseller' => Umkm::where('is_bestseller', true)->count(),
             'menu' => Menu::count(),

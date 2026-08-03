@@ -4,7 +4,7 @@
             <div>
                 <a href="{{ route('admin.umkm.index') }}" class="text-sm font-medium text-slate-500 hover:text-primary">← Toko UMKM</a>
                 <h1 class="mt-1 text-xl font-semibold tracking-tight text-navy">Menu · {{ $umkm->name }}</h1>
-                <p class="mt-0.5 text-sm text-slate-500">{{ $umkm->category?->name }} · {{ $umkm->kelurahan }}</p>
+                <p class="mt-0.5 text-sm text-slate-500">{{ $umkm->category?->name }} · Kecamatan Tambaksari</p>
             </div>
             <a href="{{ route('admin.umkm.menu.create', $umkm) }}"
                class="inline-flex items-center rounded-md bg-primary px-3.5 py-2 text-sm font-semibold text-white hover:bg-primary/90">

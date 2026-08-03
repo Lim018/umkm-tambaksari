@@ -75,14 +75,15 @@ class UmkmController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'category_id' => ['required', 'exists:categories,id'],
-            'kelurahan' => ['required', 'string', 'max:255'],
             'price_range' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:2000'],
             'whatsapp' => ['required', 'string', 'max:20'],
             'shopee_url' => ['nullable', 'url', 'max:255'],
             'pastel_bg' => ['nullable', 'string', 'max:255'],
             'photo' => ['nullable', 'image', 'max:4096'],
         ]);
 
+        $data['kelurahan'] = 'Tambaksari';
         $data['is_featured'] = $request->boolean('is_featured');
         $data['is_bestseller'] = $request->boolean('is_bestseller');
         $data['pastel_bg'] = $data['pastel_bg'] ?: 'linear-gradient(135deg,#EDE9FE,#F5F0FF)';

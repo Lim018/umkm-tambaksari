@@ -22,8 +22,8 @@
         @foreach ([
             ['label' => 'Toko UMKM', 'val' => $stats['umkm'], 'href' => route('admin.umkm.index')],
             ['label' => 'Menu', 'val' => $stats['menu'], 'href' => route('admin.umkm.index')],
-            ['label' => 'Kelurahan', 'val' => $stats['kelurahan'], 'href' => route('admin.umkm.index')],
             ['label' => 'Unggulan', 'val' => $stats['featured'], 'href' => route('admin.umkm.index')],
+            ['label' => 'Terlaris', 'val' => $stats['bestseller'], 'href' => route('admin.umkm.index')],
         ] as $s)
             <a href="{{ $s['href'] }}" class="rounded-lg border border-slate-200 bg-white p-4 hover:border-slate-300">
                 <p class="text-xs font-medium text-slate-500">{{ $s['label'] }}</p>
@@ -44,7 +44,6 @@
                     <tr>
                         <th class="px-4 py-3 sm:px-5">Nama</th>
                         <th class="px-4 py-3">Kategori</th>
-                        <th class="px-4 py-3">Kelurahan</th>
                         <th class="px-4 py-3 text-right sm:px-5">Aksi</th>
                     </tr>
                 </thead>
@@ -53,7 +52,6 @@
                         <tr class="hover:bg-slate-50/80">
                             <td class="px-4 py-3 font-medium text-navy sm:px-5">{{ $u->name }}</td>
                             <td class="px-4 py-3 text-slate-600">{{ $u->category?->name }}</td>
-                            <td class="px-4 py-3 text-slate-600">{{ $u->kelurahan }}</td>
                             <td class="px-4 py-3 text-right sm:px-5">
                                 <a href="{{ route('admin.umkm.menu.index', $u) }}" class="font-medium text-slate-600 hover:text-navy">Menu</a>
                                 <a href="{{ route('admin.umkm.edit', $u) }}" class="ml-3 font-medium text-primary hover:underline">Edit</a>
@@ -61,7 +59,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="px-4 py-10 text-center text-slate-500 sm:px-5">
+                            <td colspan="3" class="px-4 py-10 text-center text-slate-500 sm:px-5">
                                 Belum ada toko.
                                 <a href="{{ route('admin.umkm.create') }}" class="font-medium text-primary hover:underline">Tambah sekarang</a>
                             </td>

@@ -25,7 +25,6 @@
                     <tr>
                         <th class="px-4 py-3 sm:px-5">Toko</th>
                         <th class="px-4 py-3">Kategori</th>
-                        <th class="px-4 py-3">Kelurahan</th>
                         <th class="px-4 py-3">Menu</th>
                         <th class="px-4 py-3">Status</th>
                         <th class="px-4 py-3 text-right sm:px-5">Aksi</th>
@@ -49,7 +48,6 @@
                                 </div>
                             </td>
                             <td class="px-4 py-3 text-slate-600">{{ $u->category?->name }}</td>
-                            <td class="px-4 py-3 text-slate-600">{{ $u->kelurahan }}</td>
                             <td class="px-4 py-3 tabular-nums text-slate-600">{{ $u->menus_count }}</td>
                             <td class="px-4 py-3">
                                 <div class="flex flex-wrap gap-1">
@@ -76,7 +74,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-4 py-12 text-center text-slate-500 sm:px-5">
+                            <td colspan="5" class="px-4 py-12 text-center text-slate-500 sm:px-5">
                                 Belum ada toko.
                                 <a href="{{ route('admin.umkm.create') }}" class="font-medium text-primary hover:underline">Tambah toko</a>
                             </td>

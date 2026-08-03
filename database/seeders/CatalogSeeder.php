@@ -23,22 +23,29 @@ class CatalogSeeder extends Seeder
     public function run(): void
     {
         $byName = [];
+        $keptSlugs = [];
         foreach (self::CATEGORIES as $c) {
-            $byName[$c['name']] = Category::updateOrCreate(
-                ['slug' => Str::slug($c['name'])],
-                $c
-            );
+            $slug = Str::slug($c['name']);
+            $keptSlugs[] = $slug;
+            $byName[$c['name']] = Category::updateOrCreate(['slug' => $slug], $c);
         }
 
+        $keptIds = collect($byName)->pluck('id')->all();
+        $fallbackId = $keptIds[0];
+
+        Umkm::whereNotIn('category_id', $keptIds)->update(['category_id' => $fallbackId]);
+        Umkm::query()->update(['kelurahan' => 'Tambaksari']);
+        Category::whereNotIn('slug', $keptSlugs)->delete();
+
         $umkms = [
-            ['name' => 'Sambel Bu Yanti',      'cat' => 'Makanan', 'kel' => 'Tambaksari',       'price' => 'Rp 15rb–40rb',  'bg' => 'linear-gradient(135deg,#FFE4DA,#FFF3EE)', 'feat' => true, 'best' => true],
-            ['name' => 'Kopi Susu Rangkah',    'cat' => 'Minuman', 'kel' => 'Rangkah',          'price' => 'Rp 12rb–25rb',  'bg' => 'linear-gradient(135deg,#CCFBF1,#ECFEFB)', 'feat' => true, 'best' => true],
-            ['name' => 'Batik Ploso Ayu',      'cat' => 'Fashion', 'kel' => 'Ploso',            'price' => 'Rp 85rb–350rb', 'bg' => 'linear-gradient(135deg,#EDE9FE,#F5F0FF)', 'feat' => true, 'best' => false],
-            ['name' => 'Keripik Tempe Renyah', 'cat' => 'Makanan', 'kel' => 'Pacar Kembang',    'price' => 'Rp 10rb–30rb',  'bg' => 'linear-gradient(135deg,#FEF3C7,#FFFBEB)', 'feat' => true, 'best' => true],
-            ['name' => 'Es Dawet Gading',      'cat' => 'Minuman', 'kel' => 'Gading',           'price' => 'Rp 8rb–18rb',   'bg' => 'linear-gradient(135deg,#D1FAE5,#ECFDF5)', 'feat' => true, 'best' => false],
-            ['name' => 'Kaos Sablon Setro',    'cat' => 'Fashion', 'kel' => 'Dukuh Setro',      'price' => 'Rp 55rb–150rb', 'bg' => 'linear-gradient(135deg,#DBEAFE,#EEF5FF)', 'feat' => true, 'best' => true],
-            ['name' => 'Rujak Cingur Keling',  'cat' => 'Makanan', 'kel' => 'Pacar Keling',     'price' => 'Rp 18rb–35rb',  'bg' => 'linear-gradient(135deg,#FCE7F3,#FFF0F6)', 'feat' => true, 'best' => false],
-            ['name' => 'Jus Buah Segar Kapas', 'cat' => 'Minuman', 'kel' => 'Kapas Madya Baru', 'price' => 'Rp 10rb–22rb',  'bg' => 'linear-gradient(135deg,#FEF3C7,#FFFBEB)', 'feat' => true, 'best' => true],
+            ['name' => 'Sambel Bu Yanti',      'cat' => 'Makanan', 'price' => 'Rp 15rb–40rb',  'bg' => 'linear-gradient(135deg,#FFE4DA,#FFF3EE)', 'feat' => true, 'best' => true, 'desc' => 'Sambel homemade khas Tambaksari dengan resep turun-temurun. Pedas, gurih, dan cocok untuk lauk harian.'],
+            ['name' => 'Kopi Susu Rangkah',    'cat' => 'Minuman', 'price' => 'Rp 12rb–25rb',  'bg' => 'linear-gradient(135deg,#CCFBF1,#ECFEFB)', 'feat' => true, 'best' => true, 'desc' => 'Kedai kopi susu lokal dengan menu signature gula aren dan pastry ringan untuk teman ngopi.'],
+            ['name' => 'Batik Ploso Ayu',      'cat' => 'Fashion', 'price' => 'Rp 85rb–350rb', 'bg' => 'linear-gradient(135deg,#EDE9FE,#F5F0FF)', 'feat' => true, 'best' => false, 'desc' => 'Batik tulis dan print motif khas Surabaya. Pakaian siap pakai untuk pria dan wanita.'],
+            ['name' => 'Keripik Tempe Renyah', 'cat' => 'Makanan', 'price' => 'Rp 10rb–30rb',  'bg' => 'linear-gradient(135deg,#FEF3C7,#FFFBEB)', 'feat' => true, 'best' => true, 'desc' => 'Camilan keripik tempe tanpa pengawet, tersedia rasa original dan pedas dalam kemasan hemat.'],
+            ['name' => 'Es Dawet Gading',      'cat' => 'Minuman', 'price' => 'Rp 8rb–18rb',   'bg' => 'linear-gradient(135deg,#D1FAE5,#ECFDF5)', 'feat' => true, 'best' => false, 'desc' => 'Es dawet segar dengan santan kental dan gula merah alami. Minuman favorit warga setempat.'],
+            ['name' => 'Kaos Sablon Setro',    'cat' => 'Fashion', 'price' => 'Rp 55rb–150rb', 'bg' => 'linear-gradient(135deg,#DBEAFE,#EEF5FF)', 'feat' => true, 'best' => true, 'desc' => 'Kaos sablon custom dan ready stock dengan desain lokal. Bahan adem, cocok untuk daily wear.'],
+            ['name' => 'Rujak Cingur Keling',  'cat' => 'Makanan', 'price' => 'Rp 18rb–35rb',  'bg' => 'linear-gradient(135deg,#FCE7F3,#FFF0F6)', 'feat' => true, 'best' => false, 'desc' => 'Rujak cingur otentik dengan bumbu petis khas Surabaya. Segar, pedas, dan mengenyangkan.'],
+            ['name' => 'Jus Buah Segar Kapas', 'cat' => 'Minuman', 'price' => 'Rp 10rb–22rb',  'bg' => 'linear-gradient(135deg,#FEF3C7,#FFFBEB)', 'feat' => true, 'best' => true, 'desc' => 'Jus buah segar tanpa pengawet, diperas setiap hari. Pilihan sehat untuk cuaca panas.'],
         ];
 
         $created = [];
@@ -46,8 +53,9 @@ class CatalogSeeder extends Seeder
             $created[$u['name']] = Umkm::create([
                 'name' => $u['name'],
                 'category_id' => $byName[$u['cat']]->id,
-                'kelurahan' => $u['kel'],
+                'kelurahan' => 'Tambaksari',
                 'price_range' => $u['price'],
+                'description' => $u['desc'],
                 'pastel_bg' => $u['bg'],
                 'whatsapp' => '6281234567890',
                 'shopee_url' => null,

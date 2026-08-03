@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Umkm extends Model
 {
     protected $fillable = [
-        'name', 'category_id', 'kelurahan', 'price_range', 'photo_path',
+        'name', 'category_id', 'kelurahan', 'price_range', 'description', 'photo_path',
         'pastel_bg', 'whatsapp', 'shopee_url', 'is_featured', 'is_bestseller',
     ];
 
