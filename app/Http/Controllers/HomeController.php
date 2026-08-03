@@ -9,6 +9,7 @@ class HomeController extends Controller
     public function index()
     {
         $featured = Umkm::with('category')
+            ->withCount('menus')
             ->where('is_featured', true)
             ->latest('id')
             ->take(8)

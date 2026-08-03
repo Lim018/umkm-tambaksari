@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Umkm extends Model
 {
     protected $fillable = [
-        'name', 'category_id', 'kelurahan', 'price_range', 'photo_path',
+        'name', 'category_id', 'kelurahan', 'price_range', 'description', 'photo_path',
         'pastel_bg', 'whatsapp', 'shopee_url', 'is_featured', 'is_bestseller',
     ];
 
@@ -20,6 +21,11 @@ class Umkm extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function menus(): HasMany
+    {
+        return $this->hasMany(Menu::class)->orderBy('sort_order')->orderBy('name');
     }
 
     /** Link WhatsApp siap-pakai. */

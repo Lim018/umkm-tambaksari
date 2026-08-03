@@ -1,52 +1,72 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="text-xl font-bold leading-tight text-navy">Panel Admin</h2>
-            <a href="{{ route('home') }}" class="text-sm font-semibold text-primary">Lihat Situs →</a>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+                <h1 class="text-xl font-semibold tracking-tight text-navy">Dashboard</h1>
+                <p class="mt-0.5 text-sm text-slate-500">Ringkasan data katalog UMKM Tambaksari</p>
+            </div>
+            <a href="{{ route('admin.umkm.create') }}"
+               class="inline-flex items-center rounded-md bg-primary px-3.5 py-2 text-sm font-semibold text-white hover:bg-primary/90">
+                Tambah toko
+            </a>
         </div>
     </x-slot>
 
-    <div class="py-10">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            @if (session('status'))
-                <div class="mb-6 rounded-xl bg-teal/15 px-4 py-3 text-sm font-semibold text-teal">{{ session('status') }}</div>
-            @endif
-
-            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-                @foreach ([
-                    ['label' => 'Total UMKM', 'val' => $stats['umkm'], 'color' => 'text-primary'],
-                    ['label' => 'Kelurahan', 'val' => $stats['kelurahan'], 'color' => 'text-ungu'],
-                    ['label' => 'Unggulan', 'val' => $stats['featured'], 'color' => 'text-coral'],
-                    ['label' => 'Terlaris', 'val' => $stats['bestseller'], 'color' => 'text-teal'],
-                ] as $s)
-                    <div class="rounded-2xl border border-white/80 bg-white/80 p-5 shadow-soft backdrop-blur">
-                        <p class="text-sm font-medium text-grey-soft">{{ $s['label'] }}</p>
-                        <p class="mt-1 text-3xl font-extrabold {{ $s['color'] }}">{{ $s['val'] }}</p>
-                    </div>
-                @endforeach
-            </div>
-
-            <div class="mt-6 flex flex-wrap gap-3">
-                <a href="{{ route('admin.umkm.index') }}" class="rounded-pill bg-gradient-to-br from-primary to-ungu px-5 py-2.5 text-sm font-bold text-white">Kelola UMKM</a>
-                <a href="{{ route('admin.umkm.create') }}" class="rounded-pill border border-white/90 bg-white/70 px-5 py-2.5 text-sm font-bold text-navy">+ UMKM Baru</a>
-            </div>
-
-            <div class="mt-8 rounded-2xl border border-white/80 bg-white/80 p-6 shadow-soft backdrop-blur">
-                <h3 class="mb-4 text-lg font-bold text-navy">UMKM Terbaru</h3>
-                <ul class="divide-y divide-grey-soft/15">
-                    @forelse ($recent as $u)
-                        <li class="flex items-center justify-between py-3">
-                            <div>
-                                <p class="font-semibold text-navy">{{ $u->name }}</p>
-                                <p class="text-sm text-grey-soft">{{ $u->category?->name }} · {{ $u->kelurahan }}</p>
-                            </div>
-                            <a href="{{ route('admin.umkm.edit', $u) }}" class="text-sm font-bold text-primary">Edit</a>
-                        </li>
-                    @empty
-                        <li class="py-3 text-grey-soft">Belum ada data.</li>
-                    @endforelse
-                </ul>
-            </div>
+    @if (session('status'))
+        <div class="mb-4 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+            {{ session('status') }}
         </div>
+    @endif
+
+    <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        @foreach ([
+            ['label' => 'Toko UMKM', 'val' => $stats['umkm'], 'href' => route('admin.umkm.index')],
+            ['label' => 'Menu', 'val' => $stats['menu'], 'href' => route('admin.umkm.index')],
+            ['label' => 'Unggulan', 'val' => $stats['featured'], 'href' => route('admin.umkm.index')],
+            ['label' => 'Terlaris', 'val' => $stats['bestseller'], 'href' => route('admin.umkm.index')],
+        ] as $s)
+            <a href="{{ $s['href'] }}" class="rounded-lg border border-slate-200 bg-white p-4 hover:border-slate-300">
+                <p class="text-xs font-medium text-slate-500">{{ $s['label'] }}</p>
+                <p class="mt-2 text-2xl font-semibold tabular-nums text-navy">{{ $s['val'] }}</p>
+            </a>
+        @endforeach
     </div>
+
+    <section class="mt-6 rounded-lg border border-slate-200 bg-white">
+        <div class="flex items-center justify-between border-b border-slate-200 px-4 py-3 sm:px-5">
+            <h2 class="text-sm font-semibold text-navy">Toko terbaru</h2>
+            <a href="{{ route('admin.umkm.index') }}" class="text-sm font-medium text-primary hover:underline">Lihat semua</a>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-left text-sm">
+                <thead class="border-b border-slate-100 bg-slate-50 text-xs font-medium uppercase tracking-wide text-slate-500">
+                    <tr>
+                        <th class="px-4 py-3 sm:px-5">Nama</th>
+                        <th class="px-4 py-3">Kategori</th>
+                        <th class="px-4 py-3 text-right sm:px-5">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @forelse ($recent as $u)
+                        <tr class="hover:bg-slate-50/80">
+                            <td class="px-4 py-3 font-medium text-navy sm:px-5">{{ $u->name }}</td>
+                            <td class="px-4 py-3 text-slate-600">{{ $u->category?->name }}</td>
+                            <td class="px-4 py-3 text-right sm:px-5">
+                                <a href="{{ route('admin.umkm.menu.index', $u) }}" class="font-medium text-slate-600 hover:text-navy">Menu</a>
+                                <a href="{{ route('admin.umkm.edit', $u) }}" class="ml-3 font-medium text-primary hover:underline">Edit</a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3" class="px-4 py-10 text-center text-slate-500 sm:px-5">
+                                Belum ada toko.
+                                <a href="{{ route('admin.umkm.create') }}" class="font-medium text-primary hover:underline">Tambah sekarang</a>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </section>
 </x-app-layout>
